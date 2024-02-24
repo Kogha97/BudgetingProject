@@ -1,0 +1,262 @@
+:root{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: white;
+  color: black;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#root{
+  display: flex;
+  flex-direction: row;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: 100dvw
+}
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ 
+}
+.SideNavBar{
+  width: 20dvw;
+  height: 100dvh;
+  background-color: rgba(0, 255, 149, 0.8);
+}
+.closingButton{
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-right: 10px;
+}
+button{
+  border: none;
+  color: white;
+  background-color: transparent;
+  cursor: pointer;
+}
+.monthSelector{
+  height: 100px;
+}
+.SideNavBar{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 0px 15px 15px 0px;
+  overflow:  hidden
+}
+.features{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+.features a, .features button, .dropdownVisible.visible{
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 400;
+  gap: 15px;
+}
+.dropdownVisible{
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: ease-in;
+}
+
+.dropdownVisible.visible {
+  opacity: 1;
+  height: auto;
+}
+header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.header-left{
+display: hidden;
+}
+.header-mid{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 5dvh;
+  padding: 20px 20px 0px 0px;
+  gap: 50px;
+  align-items: center;
+  position: relative;
+}
+.header-right{
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+height: 5dvh;
+padding: 20px 20px 0px 0px;
+gap: 50px;
+align-items: center;
+position: relative;
+  
+}
+.userGreeting{
+  color:rgba(0, 255, 149, 0.8);
+  font-size: 30px;
+}
+.contentGrid{
+  display: flex;
+  flex-direction: column;
+  width: 100dvw;
+  height: 100dvh;
+}
+.userIcon{
+  color: rgba(0, 255, 149, 0.8);
+
+  font-size: 30px; 
+}
+.loginText, .loginText a{
+  display: flex;
+  font-size: 1.5rem;
+  margin: 0;
+  color: black;
+  font-weight: 100;
+  text-decoration: none;
+  color: rgba(0, 255, 149, 0.8);
+}
+.loginButton, .registerButton, .saveButton{
+  border: solid 2px rgba(0, 255, 149, 0.8);
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  color: black;
+  font-size: 20px;
+}
+.saveButton{
+  width: 150px;
+}
+.loginText a:hover{
+  color: rgba(0, 255, 149, 0.8)
+}
+.bigLoginContainer, .bigRegisterContainer{
+  display: flex;
+  justify-content: center;
+  padding: 100px;
+}
+.loginContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid grey;
+  width: 400px;
+  height: 500px;
+  border-radius: 20px;
+}
+.registerContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid grey;
+  width: 450px;
+  height: 600px;
+  border-radius: 20px;
+}
+.usernameContainer, .passwordContainer, .phoneContainer, .emailContainer{
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  gap: 5px;
+}
+.usernameContainer input, .passwordContainer input{
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.nameContainer{
+  display: flex;
+  flex-direction: row;
+}
+.profileDropdown{
+position: absolute;
+top: 100%;
+right: 20px;
+background-color:rgba(0, 255, 149, 0.8);
+min-width: 150px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+display: flex;
+flex-direction: column;
+gap: 10px;
+z-index: 1;
+padding: 10px 0px 10px 0px;
+} 
+.profileDropdown a{
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+  height: 30px;
+}
+.profileDropdown a:hover{
+  background-color: rgba(0, 255, 149, 0.8);
+}
+.profileUpdateContainer{
+  height: 95dvh;
+}
+.profileUpdateContainer h2{
+  font-size: 30px;
+}
+ .updateContainerName, .updateContainerContact, .updateContainerImage{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: center;
+  height: 100px;
+  padding: 20px 0px 20px 0px;
+  align-items: center;
+ }
+ .updateContainerNameFirst, .updateContainerNameLast, .updateContainerPhone, .updateContainerEmail{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+ }
+.updateContainerImage img{
+  width: 100px;
+  height: 100px;
+  object-fit: cover
+}
+
+/* display grid for cash flow */
+
+.displayGrid{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100dvh;
+  padding: 100px 100px 50px 100px;
+}
+.displayList{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* dashboard of main page */
+
+.mainGridDashboard{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 100px 100px 0px 100px;
+}
