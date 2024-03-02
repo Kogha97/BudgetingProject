@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,7 @@ import { UserContext } from '../Context/userContext'
 
 export default function Header() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
   const { user , setUser} = useContext(UserContext)
   const toggleDropdown = () => {
     setDropdownVisible(dropdownVisible => !dropdownVisible);
@@ -16,11 +17,36 @@ export default function Header() {
     localStorage.removeItem('bankUser'); 
     setUser({ isLoggedIn: false }); 
   };
+useEffect(()=>{
+  const tick = () =>{
+    setCurrentDate(new Date());
+  };
 
+  const intervalId = setInterval(tick, 1000);
+
+  return () => {
+    clearInterval(intervalId)
+  }
+},[])
+
+const dateString = currentDate.toLocaleString('en-UK', {
+  weekday: 'long', 
+  year: 'numeric', 
+  month: 'long', 
+  day: 'numeric',
+});
+
+const timeString = currentDate.toLocaleTimeString('en-UK',{
+  hour: 'numeric', 
+  minute: 'numeric', 
+  second: 'numeric', 
+  hour12: true, 
+})
   return (
     <header className='header'>
       <div className='header-left'>
-      
+      <p>{dateString}</p>
+      <p>{timeString}</p>
       </div>
         <div className='header-mid'>
         {user.isLoggedIn && (

@@ -114,12 +114,14 @@ export default function HomePage() {
     },
   };
   
-  
 
   return (
     <div className='mainGridDashboard'>
       <div className='leftGridDashboard'>
-        
+        <div className='budgetGrid'>
+          <h3>Budget Target</h3>
+          
+        </div>
       </div>
       <div className='rightGridDashboard'>
       <div>
