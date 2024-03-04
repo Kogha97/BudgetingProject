@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
+import { BudgetContext } from '../Context/budgetContext';
+import Decimal from 'decimal.js';
 
 export default function HomePage() {
   const [balance, setBalance] = useState(null);
@@ -10,12 +12,14 @@ export default function HomePage() {
   const [error, setError] = useState('');
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalSpent, setTotalSpent] = useState(0);
+  const { updateBudgetCategory } = useContext(BudgetContext)
 
   useEffect(() => {
     const fetchBankBalance = async () => {
       try {
         const response = await axios.get("http://localhost:5001/banking/balance");
         setBalance(response.data);
+        
       } catch (error) {
         const message = error.response ? error.response.data.error : error.message;
         setError(`Failed to fetch bank data: ${message}. Please try again later.`);
@@ -26,25 +30,72 @@ export default function HomePage() {
     const fetchBankFlow = async () => {
       try {
         const response = await axios.get("http://localhost:5001/banking/flowIn");
-        const positiveTransactions = response.data.feedItems.filter(item => item.direction === 'IN');
-        const negativeTransactions = response.data.feedItems.filter(item => item.direction === 'OUT');
-
+        const transactions = response.data.feedItems; 
+  
+        // Filter transactions by direction
+        const positiveTransactions = transactions.filter(item => item.direction === 'IN');
+        const negativeTransactions = transactions.filter(item => item.direction === 'OUT');
+        
+        // Set positive and negative transactions
         setMoneyIn(positiveTransactions);
         setMoneyOut(negativeTransactions);
-
+  
+        // Calculate total income and spent
         const totalIn = positiveTransactions.reduce((acc, curr) => acc + curr.amount.minorUnits, 0);
         setTotalIncome(totalIn);
-
+  
         const totalOut = negativeTransactions.reduce((acc, curr) => acc + curr.amount.minorUnits, 0);
         setTotalSpent(totalOut);
+  
+        const eatingOutTransactions = transactions.filter(item => item.spendingCategory === 'EATING_OUT');
+        const groceriesTransactions = transactions.filter(item => item.spendingCategory === 'GROCERIES');
+        const rentTransactions = transactions.filter(item => item.reference === 'RENT');
+        const medicalTransactions = transactions.filter(item => item.reference === 'MEDICAL');
+        const travelTransactions = transactions.filter(item => item.reference === 'TRAVEL');
+        const subscriptionsTransactions = transactions.filter(item => item.reference === 'SUBCRIPTIONS')
+
+
+        const categorizedTransactions = [
+          ...eatingOutTransactions,
+          ...groceriesTransactions,
+          ...rentTransactions,
+          ...medicalTransactions,
+          ...travelTransactions,
+          ...subscriptionsTransactions
+        ];
+
+        const extrasTransactions = negativeTransactions.filter(transaction => 
+          !categorizedTransactions.includes(transaction)
+        );
+        // Calculate total for each category
+
+
+        const totalEatingOut = calculateTotal(eatingOutTransactions);
+        const totalGroceries = calculateTotal(groceriesTransactions);
+        const totalRent = calculateTotal(rentTransactions);
+        const totalMedical = calculateTotal(medicalTransactions);
+        const totalTravel = calculateTotal(travelTransactions);
+        const totalSubscripions = calculateTotal(subscriptionsTransactions)
+        const totalExtras = calculateTotal(extrasTransactions);
+
+
+
+      updateBudgetCategory('Eating Out', totalEatingOut);
+      updateBudgetCategory('Groceries', totalGroceries);
+      updateBudgetCategory('House Expenses', totalRent);
+      updateBudgetCategory('Medical', totalMedical)
+      updateBudgetCategory('Travel', totalTravel)
+      updateBudgetCategory('Subscriptions', totalSubscripions)
+      updateBudgetCategory('Extras', totalExtras);
+
 
       } catch (error) {
-        const message = error.response ? error.response.data.error: error.message;
+        const message = error.response ? error.response.data.error : error.message;
         setError(`Failed to fetch bank data: ${message}. Please try again later.`);
         console.log('error fetching bank data', message);
       }
     };
-
+  
     fetchBankFlow();
     fetchBankBalance();
   }, []);
@@ -52,6 +103,9 @@ export default function HomePage() {
   const formatMinorUnits = (minorUnits) => {
     return (minorUnits / 100).toFixed(2);
   };
+  function calculateTotal(transactions) {
+    return transactions.reduce((acc, curr) => acc.plus(new Decimal(curr.amount.minorUnits)), new Decimal(0)).dividedBy(100).toFixed(2);
+  }
 
   const chartData = {
     labels: ['Income', 'Spent'],
