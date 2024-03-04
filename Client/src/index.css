@@ -268,3 +268,14 @@ padding: 10px 0px 10px 0px;
   justify-content: space-between;
   padding: 100px 100px 0px 100px;
 }
+
+.budgetGrid{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+}
+.budgetGrid h3{
+  border: 1px solid grey;
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px;
+}
