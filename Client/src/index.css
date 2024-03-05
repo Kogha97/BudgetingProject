@@ -268,14 +268,31 @@ padding: 10px 0px 10px 0px;
   justify-content: space-between;
   padding: 100px 100px 0px 100px;
 }
-
-.budgetGrid{
+.leftGridDashboard{
   display: flex;
+  min-height: 60dvh;
   flex-direction: column;
-  border: 1px solid grey;
+  justify-content: center;
 }
-.budgetGrid h3{
-  border: 1px solid grey;
-  padding: 10px 10px 10px 10px;
-  border-radius: 10px;
+.budgetContainer {
+  padding: 20px;
+  border: 1px solid #ccc;
+  width: 100%; 
+  height: 50dvh;
+  border-radius: 30px;
+}
+
+.budgetGridHeader, .budgetGridRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  min-width: 30dvw; 
+}
+.budgetGridHeader div, .budgetGridRow div {
+  flex: 1;
+  text-align: center; 
+}
+.budgetGridHeader {
+  background-color: #f0f0f0;
+  font-weight: bold;
 }

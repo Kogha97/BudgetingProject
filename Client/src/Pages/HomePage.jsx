@@ -4,6 +4,7 @@ import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { BudgetContext } from '../Context/budgetContext';
 import Decimal from 'decimal.js';
+import BudgetGrid from '../Components/budgetGrid';
 
 export default function HomePage() {
   const [balance, setBalance] = useState(null);
@@ -172,10 +173,7 @@ export default function HomePage() {
   return (
     <div className='mainGridDashboard'>
       <div className='leftGridDashboard'>
-        <div className='budgetGrid'>
-          <h3>Budget Target</h3>
-          
-        </div>
+         <BudgetGrid/>
       </div>
       <div className='rightGridDashboard'>
       <div>
