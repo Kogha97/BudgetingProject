@@ -32,74 +32,38 @@ const updateBudgetCategory = async (categoryName, newCurrent) => {
     }
   };
 
+
 const fetchBudgetData = async () => {
     if (!user || !user._id) return;
+
     try {
-        const response = await axios.get(`http://localhost:5001/users/${user._id}/budgetTargets`);
-        const predefinedCategories = [...budgetData]; 
-        const fetchedTargetsMap = new Map(
-            response.data.budgetTargets.map(target => [
-                target.categoryName,
-                {
-                    target: target.targetAmount.toString(),
-                    current: '',
-                    id: target._id,
-                    createdAt: target.createdAt,
-                    updatedAt: target.updatedAt,
-                },
-            ])
-        );
+        const [targetResponse, currentResponse] = await Promise.all([
+            axios.get(`http://localhost:5001/users/${user._id}/budgetTargets`),
+            axios.get(`http://localhost:5001/users/${user._id}/budgetCurrent`)
+        ]);
 
-        const mergedBudgetData = predefinedCategories.map(category => {
-            const fetchedTarget = fetchedTargetsMap.get(category.name);
-            return fetchedTarget ? { ...category, ...fetchedTarget } : category;
-        });
+        const targetData = targetResponse.data.budgetTargets;
+        const currentData = currentResponse.data.budgetCurrent;
 
-        setBudgetData(mergedBudgetData);
+        const updatedBudgetData = budgetData.map(category => ({
+            ...category,
+            target: targetData.find(t => t.categoryName === category.name)?.targetAmount.toString() || category.target,
+            current: currentData.find(c => c.categoryName === category.name)?.currentAmount.toString() || category.current,
+        }));
+
+        setBudgetData(updatedBudgetData);
     } catch (error) {
-        console.error("Failed to fetch budget data:", error.message);
-    }
-};
-
-const fetchBudgetDataCurrent = async () => {
-    if (!user || !user._id) return;
-    try {
-        const response = await axios.get(`http://localhost:5001/users/${user._id}/budgetCurrent`);
-        const predefinedCategories = [...budgetData]; 
-        const fetchedCurrentMap = new Map(
-            response.data.budgetCurrent.map(current => [
-                current.categoryName,
-                {
-                    current: current.currentAmount.toString(),
-                    current: '',
-                    id: current._id,
-                    createdAt: current.createdAt,
-                    updatedAt: current.updatedAt,
-                },
-            ])
-        );
-
-        const mergedBudgetData = predefinedCategories.map(category => {
-            const fetchedCurrent = fetchedCurrentMap.get(category.name);
-            return fetchedCurrent ? { ...category, ...fetchedCurrent } : category;
-        });
-
-        setBudgetData(mergedBudgetData);
-    } catch (error) {
-        console.error("Failed to fetch budget data:", error.message);
+        console.error("Failed to fetch budget data:", error);
     }
 };
 
 useEffect(() => {
+    fetchBudgetData();
+}, [user]);
 
-    if (user) fetchBudgetData();
-    if(user)fetchBudgetDataCurrent();
-},[user])
-      
-
-    return (
-        <BudgetContext.Provider value = {{budgetData, updateBudgetCategory, fetchBudgetData,}}>
-            {children}
-        </BudgetContext.Provider>
-    );
-};
+return (
+    <BudgetContext.Provider value={{ budgetData, fetchBudgetData, updateBudgetCategory: () => {} }}>
+        {children}
+    </BudgetContext.Provider>
+);
+}

@@ -4,7 +4,7 @@ import { UserContext } from '../Context/userContext';
 import axios from 'axios'
 
 export default function BudgetGrid() {
-    const { budgetData, updateBudgetCategory, fetchBudgetData } = useContext(BudgetContext);
+    const { budgetData, fetchBudgetData } = useContext(BudgetContext);
     const { user } = useContext(UserContext);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
