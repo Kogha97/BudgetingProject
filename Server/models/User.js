@@ -2,6 +2,31 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
+const budgetCurrentSchema = new Schema({
+    categoryName:{
+        type: String,
+        required: true,
+        unique: true
+    },
+    currentAmount:{
+        type: Number,
+        required: true
+    },
+}, {timestamps: true});
+
+
+const budgetTargetSchema = new Schema({
+    categoryName: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    targetAmount: {
+      type: Number,
+      required: true,
+    },
+  }, { timestamps: true });
+
 const userSchema = new Schema({
     username: {
         type: String,
@@ -35,7 +60,9 @@ const userSchema = new Schema({
     avatarUrl:{
         type: String,
         required: false
-    }
+    },
+    budgetTargets: [budgetTargetSchema],
+    budgetCurrent: [budgetCurrentSchema]
 })
 const User = mongoose.model("User", userSchema);
 

@@ -11,7 +11,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: "*"
 }));//allows the vite server to get information from my sever
 app.use(morgan('dev'));
 app.use(express.json());

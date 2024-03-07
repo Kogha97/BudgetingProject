@@ -5,6 +5,9 @@ import Chart from 'chart.js/auto';
 import { BudgetContext } from '../Context/budgetContext';
 import Decimal from 'decimal.js';
 import BudgetGrid from '../Components/budgetGrid';
+import { UserContext } from '../Context/userContext'
+
+
 
 export default function HomePage() {
   const [balance, setBalance] = useState(null);
@@ -14,7 +17,7 @@ export default function HomePage() {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalSpent, setTotalSpent] = useState(0);
   const { updateBudgetCategory } = useContext(BudgetContext)
-
+  const { user } = useContext(UserContext)
   useEffect(() => {
     const fetchBankBalance = async () => {
       try {
@@ -79,14 +82,13 @@ export default function HomePage() {
         const totalSubscripions = calculateTotal(subscriptionsTransactions)
         const totalExtras = calculateTotal(extrasTransactions);
 
-
-
+          
       updateBudgetCategory('Eating Out', totalEatingOut);
       updateBudgetCategory('Groceries', totalGroceries);
       updateBudgetCategory('House Expenses', totalRent);
-      updateBudgetCategory('Medical', totalMedical)
-      updateBudgetCategory('Travel', totalTravel)
-      updateBudgetCategory('Subscriptions', totalSubscripions)
+      updateBudgetCategory('Medical', totalMedical);
+      updateBudgetCategory('Travel', totalTravel);
+      updateBudgetCategory('Subscriptions', totalSubscripions);
       updateBudgetCategory('Extras', totalExtras);
 
 
@@ -99,14 +101,18 @@ export default function HomePage() {
   
     fetchBankFlow();
     fetchBankBalance();
-  }, []);
+  }, [user]);
+
 
   const formatMinorUnits = (minorUnits) => {
     return (minorUnits / 100).toFixed(2);
   };
   function calculateTotal(transactions) {
-    return transactions.reduce((acc, curr) => acc.plus(new Decimal(curr.amount.minorUnits)), new Decimal(0)).dividedBy(100).toFixed(2);
-  }
+ 
+    const total = transactions.reduce((acc, curr) => acc.plus(new Decimal(curr.amount.minorUnits)), new Decimal(0)).dividedBy(100); 
+
+    return Number(total.toFixed(2));
+}
 
   const chartData = {
     labels: ['Income', 'Spent'],
@@ -187,9 +193,6 @@ export default function HomePage() {
         <Bar data={chartData} options={chartOptions} />
       </div>
       </div>
-
-
-
     </div>
   );
 }

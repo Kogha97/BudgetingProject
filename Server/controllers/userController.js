@@ -40,7 +40,7 @@ export const handleLogin = async (req, res) => {
     }
   };
 
-  export const handleUpdate = async (req, res) => {
+export const handleUpdate = async (req, res) => {
     try {
       
 
@@ -62,4 +62,89 @@ export const handleLogin = async (req, res) => {
       console.error('Profile update error:', error);
       res.status(500).send('Server error during profile update.');
     }
+  };
+
+export const handleBudgetTargets = async (req, res) => {
+
+  const { userId } = req.params;
+  const {categoryName, targetAmount} = req.body
+  try {
+    const user = await User.findById(userId);
+
+    if(!user){
+      return res.status(404).send('User not found')
+    }
+    const targetIndex = user.budgetTargets.findIndex(target => target.categoryName === categoryName);
+    if (targetIndex !== -1){
+      user.budgetTargets[targetIndex].targetAmount = targetAmount;
+    } else {
+      user.budgetTargets.push({ categoryName,targetAmount});
+    }
+
+    await user.save()
+      
+    res.status(200).json({success: true, budgetTargets: user.budgetTargets})
+    
+  } catch (error) {
+    console.log('error in handleBudgetTargets',error.message)
+    res.status(500).send('Error in handleBudgetTargets')
   }
+};
+
+export const handleGetBudgetTargets = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId).select('budgetTargets -_id')
+    if(!user){
+      return res.status(404).json({ message:'User Not found'})
+    }
+    res.json({ budgetTargets: user.budgetTargets });
+  } catch (error) {
+    console.log('error in handleGetBudgetTargets:', error.message)
+    res.status(500).send('Error in handleGetBudgetTargets')
+  }
+}
+
+export const handleBudgetCurrent = async (req, res) => {
+  try {
+
+  const { userId } = req.params;
+
+  if (!userId) return req.send({success: false, error: "userid undefined"})
+
+  const {categoryName, currentAmount} = req.body
+  const user = await User.findById(userId);
+
+  if(!user){
+    return res.status(404).send('User not found')
+  }
+  const currentIndex = user.budgetCurrent.findIndex(current => current.categoryName === categoryName);
+  if (currentIndex !== -1){
+    user.budgetCurrent[currentIndex].currentAmount = currentAmount;
+  } else {
+    user.budgetCurrent.push({ categoryName,currentAmount});
+  }
+
+  await user.save()
+    
+  res.status(200).json({success: true, budgetCurrent: user.budgetCurrent})
+  
+} catch (error) {
+  console.log('error in handleBudgeCurrent',error.message)
+  res.status(500).send({success: false, error:  error.message})
+}
+};
+
+export const handleGetBudgetCurrent = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId).select('budgetCurrent -_id')
+    if(!user){
+      return res.status(404).json({ message:'User Not found'})
+    }
+    res.json({ budgetCurrent: user.budgetCurrent });
+  } catch (error) {
+    console.log('error in handleGetBudgetCurrent:', error.message)
+    res.status(500).send('Error in handleGetBudgetCurrent')
+  }
+}
