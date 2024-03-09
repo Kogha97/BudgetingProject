@@ -288,6 +288,7 @@ padding: 10px 0px 10px 0px;
   padding: 10px;
   min-width: 30dvw; 
   min-height: 30px;
+  max-width: 100px;
 }
 .budgetGridHeader div, .budgetGridRow div {
   flex: 1;
@@ -297,4 +298,17 @@ padding: 10px 0px 10px 0px;
 .budgetGridHeader {
   background-color: #f0f0f0;
   font-weight: bold;
+}
+.budgetGridRowDiv{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.budgetGridRowDiv span{
+  display: flex;
+  min-width: 100px;
+  min-height: 40px;
+  justify-content: center;
+  align-items: center;
+
 }

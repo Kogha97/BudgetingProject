@@ -13,14 +13,21 @@ export default function BudgetGrid() {
     const [editTargetAmount, setEditTargetAmount] = useState('');
 
 
-      console.log(budgetData)
-
-
-
     const getColor = (current, target) => {
-        const currentVal = parseFloat(current || '0');
-        const targetVal = parseFloat(target || '0');
-        return currentVal > targetVal ? 'red' : 'green';
+    
+      const currentVal = parseFloat(current || '0');
+      const targetVal = parseFloat(target || '0');
+      
+      const percentage = (currentVal/targetVal) * 100
+        if( percentage > 110) {
+          return 'Maroon';
+        } else if (percentage > 100 && percentage <= 110){
+          return 'DarkGoldenRod';
+        } else if(percentage >= 90 && percentage <= 100){
+          return 'MediumSeaGreen';
+        } else{
+          return 'DodgerBlue'
+        }
     };
 
     const handleUpdateTarget = async (categoryName, newTargetAmount) => {
@@ -79,12 +86,12 @@ const handleKeyDown = async (e, name, targetAmount) => {
                     <div key={index} className='budgetGridRow'>
                         <div>{name}</div>
                         <div>{current}</div>
-                        <div 
+                        <div  className='budgetGridRowDiv'
                             onClick={() => {
                                 setEditingCategory(name);
                                 setEditTargetAmount(target);
                             }}
-                            style={{ color: getColor(current, target) }}
+                            
                         >
                           {editingCategory === name ? (
                           <input
@@ -101,7 +108,7 @@ const handleKeyDown = async (e, name, targetAmount) => {
                           autoFocus
                         />
                           ) : (
-                            <span>{target}</span>
+                            <span style={{ background: getColor(current, target), color: 'white', opacity: '1'}}>{target}</span>
                           )}
                         </div>
                     </div>
