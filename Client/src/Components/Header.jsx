@@ -15,7 +15,7 @@ export default function Header() {
   }
   const handleLogout = () => {
     localStorage.removeItem('bankUser'); 
-    setUser({ isLoggedIn: false }); 
+    setUser({ isLoggedIn: false, navbar: false}); 
   };
 useEffect(()=>{
   const tick = () =>{

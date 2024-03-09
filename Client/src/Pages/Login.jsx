@@ -20,8 +20,8 @@ export default function Login() {
     console.log("response from login: ", response)
 
     if(response.data.success) {
-      localStorage.setItem("bankUser", JSON.stringify({ ...response.data.user, isLoggedIn: true }));
-      setUser({ ...response.data.user, isLoggedIn: true });
+      localStorage.setItem("bankUser", JSON.stringify({ ...response.data.user, isLoggedIn: true, navbar: true}));
+      setUser({ ...response.data.user, isLoggedIn: true, navbar: true });
       navigate("/");
   }
 }

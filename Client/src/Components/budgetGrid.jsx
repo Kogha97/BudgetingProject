@@ -108,7 +108,7 @@ const handleKeyDown = async (e, name, targetAmount) => {
                           autoFocus
                         />
                           ) : (
-                            <span style={{ background: getColor(current, target), color: 'white', opacity: '1'}}>{target}</span>
+                            <span style={{ background: getColor(current, target), color: 'white', opacity: '0.9', borderRadius:'50px',}}>{target}</span>
                           )}
                         </div>
                     </div>

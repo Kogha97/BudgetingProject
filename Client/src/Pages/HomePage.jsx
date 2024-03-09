@@ -6,6 +6,9 @@ import { BudgetContext } from '../Context/budgetContext';
 import Decimal from 'decimal.js';
 import BudgetGrid from '../Components/budgetGrid';
 import { UserContext } from '../Context/userContext'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUser, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 
@@ -17,7 +20,9 @@ export default function HomePage() {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalSpent, setTotalSpent] = useState(0);
   const { updateBudgetCategory } = useContext(BudgetContext)
-  const { user } = useContext(UserContext)
+  const { user, toggleNavbarVisibility} = useContext(UserContext)
+
+
   useEffect(() => {
     const fetchBankBalance = async () => {
       try {
@@ -175,9 +180,15 @@ export default function HomePage() {
     },
   };
   
-
+  library.add(faUser, faAngleRight);
   return (
+
     <div className='mainGridDashboard'>
+      {user.isLoggedIn && !user.navbar && (
+        <button onClick={toggleNavbarVisibility} >
+          <FontAwesomeIcon icon={["fas", "angle-right"]}className="open-navbar-button" /> 
+        </button>
+      )}
       <div className='leftGridDashboard'>
          <BudgetGrid/>
       </div>
