@@ -335,6 +335,10 @@ padding: 10px 0px 10px 0px;
   align-items: center;
   border-radius: 50px;
 }
+.budgetGridRowDiv:hover{
+  cursor: pointer;
+  opacity: 0.6;
+}
 .budgetGridRowDiv span{
   display: flex;
   min-width: 100px;
