@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,10 +8,16 @@ import { UserContext } from '../Context/userContext'
 
 export default function Header() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const dropdownRef = useRef(null); 
+
+
   const [currentDate, setCurrentDate] = useState(new Date());
+
   const { user , setUser} = useContext(UserContext)
+
+
   const toggleDropdown = () => {
-    setDropdownVisible(dropdownVisible => !dropdownVisible);
+    setDropdownVisible(!dropdownVisible);
   }
   const handleLogout = () => {
     localStorage.removeItem('bankUser'); 
@@ -29,6 +35,20 @@ useEffect(()=>{
   }
 },[])
 
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownVisible(false);
+    }
+  };
+  if (dropdownVisible) {
+    document.addEventListener('mousedown', handleClickOutside);
+  }
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+},[dropdownVisible])
+
 const dateString = currentDate.toLocaleString('en-UK', {
   weekday: 'long', 
   year: 'numeric', 
@@ -42,6 +62,10 @@ const timeString = currentDate.toLocaleTimeString('en-UK',{
   second: 'numeric', 
   hour12: true, 
 })
+
+if(!user.isLoggedIn){
+  return null
+}
   return (
     <header className='header'>
       <div className='header-left'>
@@ -65,7 +89,7 @@ const timeString = currentDate.toLocaleTimeString('en-UK',{
        <button onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faUser} className='userIcon'/><i className='fa fa-caret-down'></i></button>
         {dropdownVisible && (
-          <div className={`profileDropdown ${dropdownVisible ? 'visible' : ''}`}>
+          <div ref={dropdownRef} className={`profileDropdown ${dropdownVisible ? 'visible' : ''}`}>
             <NavLink to="/profile">Profile</NavLink>
             <NavLink to="/flow-out">Settings</NavLink>
             <a onClick={handleLogout}>Logout</a>

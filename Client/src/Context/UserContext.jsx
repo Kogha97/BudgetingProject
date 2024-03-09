@@ -23,14 +23,6 @@ export default function UserProvider({ children }) {
         }
     }, []);
 
-    // const toggleNavbarVisibility = () => {
-    //     setUser(prevUser => ({ ...prevUser, navbar: !prevUser.navbar }));
-    //     const storedUser = JSON.parse(localStorage.getItem('bankUser'));
-    //     if (storedUser) {
-    //         setUser({ ...storedUser, navbar: true }); 
-    //         console.log(storedUser)
-    //     }
-    //   };
     const toggleNavbarVisibility = () => {
         setUser({...user, navbar: true})
         localStorage.setItem("bankUser", JSON.stringify({ ...user,  navbar: true}));

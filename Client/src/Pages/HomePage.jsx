@@ -181,8 +181,16 @@ export default function HomePage() {
   };
   
   library.add(faUser, faAngleRight);
+if(!user.isLoggedIn){
+  return(
+    <div className="welcomePage">
+    <h1>Welcome to Our Finance App!</h1>
+    <p>Manage your finances with ease. Log in to get started.</p>
+    {/* You can add more content or navigation options here */}
+  </div>
+);
+}
   return (
-
     <div className='mainGridDashboard'>
       {user.isLoggedIn && !user.navbar && (
         <button onClick={toggleNavbarVisibility} >
