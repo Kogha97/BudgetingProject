@@ -13,6 +13,7 @@ import HeroLayout from '../Components/HeroLayout';
 import Features from '../Components/Features';
 import AboutUs from '../Components/AboutUs'
 import Footer from '../Components/Footer'
+import SectionSeparator from '../Components/SectionSeparator';
 
 
 
@@ -190,6 +191,7 @@ if(!user.isLoggedIn){
     <>
     <HeroLayout/>
     <Features/>
+    <SectionSeparator/>
     <AboutUs/>
     <Footer/>
     </>

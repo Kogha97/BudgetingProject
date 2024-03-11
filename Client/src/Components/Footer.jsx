@@ -1,6 +1,8 @@
 import React from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 export default function Footer() {
+
   return (
     <footer className="app-footer">
       <div className="footer-content">
@@ -14,9 +16,9 @@ export default function Footer() {
           <p>Phone: +123 456 7890</p>
         </div>
         <div className="footer-section">
-          <h3>Follow Us</h3>
-          <a href="https://twitter.com/budgetingapp">Twitter</a>
-          <a href="https://facebook.com/budgetingapp">Facebook</a>
+          <h3>Follow Us</h3> 
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon icon={faFacebook} size="2x" /></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faInstagram} size="2x" /></a>
         </div>
         <div className="footer-section">
           <h3>Legal</h3>
