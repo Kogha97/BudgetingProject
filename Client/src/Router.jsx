@@ -13,7 +13,8 @@ import Header from './Components/Header';
 import Login from './Pages/Login'
 import Register from './Pages/Register'
 import UserProfile from './Pages/UserProfile';
-import PpenButton from './Components/OpenButton';
+import OpenButton from './Components/OpenButton';
+
 
 export default function Router() {
   return (
@@ -21,7 +22,7 @@ export default function Router() {
         <SideNavBar/>
       <div className='contentGrid'>
       <Header/>
-      <PpenButton/>
+      <OpenButton/>
         <Routes>
             <Route path="/" element={<HomePage/>}/>
             <Route path='/login' element={<Login/>}/>
