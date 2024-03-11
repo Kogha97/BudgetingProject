@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../Context/userContext';
 import {NavLink} from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../index.css';
 

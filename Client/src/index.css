@@ -5,6 +5,9 @@
   background-color: white;
   color: black;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  --app-gradient: linear-gradient(to right, #00323b, #0a9396);
+  --app-second-color: #00323b;
+  --app-third-color: #0a9396;
 }
 #root{
   display: flex;
@@ -27,17 +30,9 @@ body{
 .SideNavBar{
   width: 20dvw;
   height: 100dvh;
-  background-color: rgba(0, 255, 149, 0.8);
+  background: linear-gradient(to bottom, #00323b, #0a9396);
 }
-/* .closingButton{
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding-top: 10px;
-  padding-right: 10px;
-} */
+
 .closingButton{
   position: absolute;
   top: 40dvh;
@@ -136,18 +131,17 @@ position: relative;
   
 }
 .userGreeting{
-  color:rgba(0, 255, 149, 0.8);
+  color:#0a9396;
   font-size: 30px;
 }
 .contentGrid{
   display: flex;
   flex-direction: column;
   width: 100dvw;
-  height: 100dvh;
+  min-height: 100dvh;
 }
 .userIcon{
-  color: rgba(0, 255, 149, 0.8);
-
+  color: #0a9396;
   font-size: 30px; 
 }
 .loginText, .loginText a{
@@ -157,11 +151,10 @@ position: relative;
   color: black;
   font-weight: 100;
   text-decoration: none;
-  color: rgba(0, 255, 149, 0.8);
+  color: var(--app-second-color);
 }
 .loginButton, .registerButton, .saveButton{
-  border: solid 2px rgba(0, 255, 149, 0.8);
-  width: 100px;
+  border: solid 2px  #0a9396;
   height: 40px;
   border-radius: 20px;
   color: black;
@@ -171,7 +164,7 @@ position: relative;
   width: 150px;
 }
 .loginText a:hover{
-  color: rgba(0, 255, 149, 0.8)
+  color: var(--app-second-color)
 }
 .bigLoginContainer, .bigRegisterContainer{
   display: flex;
@@ -217,10 +210,10 @@ position: relative;
 }
 .profileDropdown{
 position: absolute;
+width: 150px;
 top: 100%;
 right: 20px;
-background-color:rgba(0, 255, 149, 0.8);
-min-width: 150px;
+background: linear-gradient(to right, #00323b, #0a9396);
 box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 display: flex;
 flex-direction: column;
@@ -235,7 +228,7 @@ padding: 10px 0px 10px 0px;
   height: 30px;
 }
 .profileDropdown a:hover{
-  background-color: rgba(0, 255, 149, 0.8);
+  background-color:var(--app-third-color);
 }
 .profileUpdateContainer{
   height: 95dvh;
@@ -271,7 +264,8 @@ padding: 10px 0px 10px 0px;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 75dvh;
   padding: 100px 100px 50px 100px;
 }
 .displayList{
@@ -349,7 +343,7 @@ padding: 10px 0px 10px 0px;
 }
 
 /* OPEN SIDEBAR BUTTON */
-#root > div.contentGrid > div > button{
+.open-navbar-button{
 position: absolute;
 left: 0;
 top: 40dvh;
@@ -362,5 +356,166 @@ top: 40dvh;
 }
 .open-navbar-button:hover{
   cursor: pointer;
-  color: rgba(0, 255, 149, 0.8);
+  color:#0a9396;
+}
+/* WELCOME PAGE LAYOUT */
+
+.hero {
+  background: linear-gradient(to right, #00323b, #0a9396);
+  color: #e9d8a6;
+  padding: 4em 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2em;
+  color: whitesmoke;
+  opacity: 0.9;
+}
+
+.hero-buttons .btn {
+  padding: 0.8em 2em;
+  margin-right: 0.5em;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1;
+  border: solid 1px white;
+  border-radius: 99px;
+  transition: transform 0.3s ease;
+}
+#root > div > section > div > div > button:hover{
+
+transform: translateY(-2px);
+}
+
+/* Features Layout */
+
+.features-container {
+  background-color: #fff; /* White background */
+  padding: 4rem 10rem 4rem 10rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two columns of equal width */
+  grid-gap: 2rem; /* Space between the grid items */
+}
+
+.feature-card {
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+
+}
+
+.feature-title {
+  color: #333; 
+  margin-top: 0.5rem;
+}
+
+.feature-description {
+  color: #666; 
+  font-size: 0.9rem;
+}
+
+i {
+  font-size: 2rem; 
+  color: #0093E9; 
+}
+
+@media (max-width: 768px) {
+  .features-container {
+    grid-template-columns: 1fr; /* One column for smaller screens */
+  }
+}
+ 
+
+/* About US */
+
+.about-us .container {
+  max-width: 800px;
+  margin: auto;
+  padding: 100px 0px 100px 0px;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0px 10px 0px;
+}
+
+.accordion-title {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-title h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.accordion-content p {
+  padding: 10px 0 0;
+  margin: 0;
+}
+
+/* Footer  */
+
+.app-footer {
+  background: linear-gradient(to right, #00323b, #0a9396);
+  color: white;
+  padding: 20px 0;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-section h3 {
+  margin-bottom: 15px;
+}
+
+.footer-section p,
+.footer-section a {
+  color: #fff;
+  text-decoration: none;
+  line-height: 1.5;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+
+}
+
+#root > div > footer > div > div:nth-child(4) > a:nth-child(2){
+  padding-right: 15px;
 }

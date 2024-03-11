@@ -9,7 +9,10 @@ import { UserContext } from '../Context/userContext'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import hero from '../Components/hero';
+import HeroLayout from '../Components/HeroLayout';
+import Features from '../Components/Features';
+import AboutUs from '../Components/AboutUs'
+import Footer from '../Components/Footer'
 
 
 
@@ -184,16 +187,17 @@ export default function HomePage() {
   library.add(faUser, faAngleRight);
 if(!user.isLoggedIn){
   return(
-    <Welcome/>
+    <>
+    <HeroLayout/>
+    <Features/>
+    <AboutUs/>
+    <Footer/>
+    </>
   );
 }
   return (
     <div className='mainGridDashboard'>
-      {user.isLoggedIn && !user.navbar && (
-        <button onClick={toggleNavbarVisibility} >
-          <FontAwesomeIcon icon={["fas", "angle-right"]}className="open-navbar-button" /> 
-        </button>
-      )}
+
       <div className='leftGridDashboard'>
          <BudgetGrid/>
       </div>

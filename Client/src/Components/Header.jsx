@@ -5,11 +5,12 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../Context/userContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function Header() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null); 
-
+  const navigate = useNavigate()
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -22,6 +23,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem('bankUser'); 
     setUser({ isLoggedIn: false, navbar: false}); 
+    navigate('/')
   };
 useEffect(()=>{
   const tick = () =>{
