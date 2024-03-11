@@ -144,6 +144,8 @@ position: relative;
   color: #0a9396;
   font-size: 30px; 
 }
+/* LOGIN */
+
 .loginText, .loginText a{
   display: flex;
   font-size: 1.5rem;
@@ -152,6 +154,9 @@ position: relative;
   font-weight: 100;
   text-decoration: none;
   color: var(--app-second-color);
+}
+.loginButton, .registerButton{
+  width: 100px;
 }
 .loginButton, .registerButton, .saveButton{
   border: solid 2px  #0a9396;
@@ -168,8 +173,14 @@ position: relative;
 }
 .bigLoginContainer, .bigRegisterContainer{
   display: flex;
-  justify-content: center;
-  padding: 100px;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+}
+.loginSeparator, .registerSeparator{
+  width: 45dvw;
+  height: 100dvh;
+  background: linear-gradient(to bottom, #00323b, #0a9396)
 }
 .loginContainer{
   display: flex;
@@ -181,6 +192,7 @@ position: relative;
   width: 400px;
   height: 500px;
   border-radius: 20px;
+  margin: 100px 0px 100px 250px;
 }
 .registerContainer{
   display: flex;
@@ -192,6 +204,7 @@ position: relative;
   width: 450px;
   height: 600px;
   border-radius: 20px;
+  margin: 100px 0px 100px 250px;
 }
 .usernameContainer, .passwordContainer, .phoneContainer, .emailContainer{
   display: flex;

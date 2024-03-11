@@ -28,6 +28,9 @@ export default function Login() {
 
   return (
     <div className='bigLoginContainer'>
+      <div className='loginSeparator'>
+
+      </div>
     <div className='loginContainer'>
       <h2>Login</h2>
       <div className='usernameContainer'>

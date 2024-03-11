@@ -47,6 +47,9 @@ export default function Register() {
 
   return (
     <div className='bigRegisterContainer'>
+      <div className='registerSeparator'>
+
+      </div>
     <div className='registerContainer'>
       <h2>Register</h2>
       <div className='usernameContainer'>
