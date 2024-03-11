@@ -9,6 +9,7 @@ import { UserContext } from '../Context/userContext'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import hero from '../Components/hero';
 
 
 
@@ -183,12 +184,8 @@ export default function HomePage() {
   library.add(faUser, faAngleRight);
 if(!user.isLoggedIn){
   return(
-    <div className="welcomePage">
-    <h1>Welcome to Our Finance App!</h1>
-    <p>Manage your finances with ease. Log in to get started.</p>
-    {/* You can add more content or navigation options here */}
-  </div>
-);
+    <Welcome/>
+  );
 }
   return (
     <div className='mainGridDashboard'>
