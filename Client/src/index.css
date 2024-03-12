@@ -542,5 +542,8 @@ i {
   border: none;
   height: 2px;
   background: linear-gradient(to right, #00323b, #0a9396); /* Your gradient */
-  margin: 3dvw 20dvw 2dvw 20dvw /* Adjust the margin as needed */
+  margin: 3dvw 20dvw 2dvw 20dvw;
+}
+.fa-2x:hover{
+  font-size: 33px;
 }
