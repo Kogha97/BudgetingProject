@@ -23,6 +23,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem('bankUser'); 
     setUser({ isLoggedIn: false, navbar: false}); 
+    toggleDropdown()
     navigate('/')
   };
 useEffect(()=>{

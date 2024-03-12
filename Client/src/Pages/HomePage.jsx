@@ -25,7 +25,7 @@ export default function HomePage() {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalSpent, setTotalSpent] = useState(0);
   const { updateBudgetCategory } = useContext(BudgetContext)
-  const { user, toggleNavbarVisibility} = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export default function HomePage() {
         const extrasTransactions = negativeTransactions.filter(transaction => 
           !categorizedTransactions.includes(transaction)
         );
-        // Calculate total for each category
+      
 
 
         const totalEatingOut = calculateTotal(eatingOutTransactions);
@@ -91,6 +91,7 @@ export default function HomePage() {
         const totalTravel = calculateTotal(travelTransactions);
         const totalSubscripions = calculateTotal(subscriptionsTransactions)
         const totalExtras = calculateTotal(extrasTransactions);
+
 
           
       updateBudgetCategory('Eating Out', totalEatingOut);

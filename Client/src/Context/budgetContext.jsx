@@ -18,15 +18,20 @@ export default function BudgetProvider ({ children })  {
         {name: 'Travel', current: '', target: ''},
         {name: 'Extras', current: '', target: ''},
     ]);
-
+    console.log("🚀 ~ BudgetProvider ~ budgetData:", budgetData)
 const updateBudgetCategory = async (categoryName, newCurrent) => {
 
     try {
-        if (!user._id) return
+    if (!user._id) return
+  
+
       const response = await axios.put(`http://localhost:5001/users/${user._id}/budgetCurrent`, {
+
+
         categoryName,
         currentAmount: newCurrent,
       });
+    
     } catch (error) {
       console.error('Error updating budget category:', error.message);
     }
@@ -62,7 +67,7 @@ useEffect(() => {
 }, [user]);
 
 return (
-    <BudgetContext.Provider value={{ budgetData, fetchBudgetData, updateBudgetCategory: () => {} }}>
+    <BudgetContext.Provider value={{ budgetData, fetchBudgetData, updateBudgetCategory }}>
         {children}
     </BudgetContext.Provider>
 );

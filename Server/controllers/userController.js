@@ -1,8 +1,10 @@
 import User from "../models/User.js";
+import bcrypt from 'bcrypt'
 
 export const handleRegister = async (req, res) => {
   try {
-    console.log("this is register", req.body);
+    const hash = await bcrypt.hash(req.body.password, 10)
+    req.body.password = hash
 
     const newUser = await User.create(req.body);
     console.log("🚀 ~ newUser:", newUser);
@@ -16,29 +18,43 @@ export const handleRegister = async (req, res) => {
 };
 
 export const handleLogin = async (req, res) => {
-    try {
-      console.log("this is login", req.body);
-  
-      const user = await User.findOne({
-        $or: [
-          { username: req.body.emailOrUsername },
-          { email: req.body.emailOrUsername },
-        ],
-        password: req.body.password,
-      }).select("-password");
-    
-  
-      if (!user) {
-        return res.send({ success: false });
-      }
-  
-      res.send({ success: true, user });
-    } catch (error) {
-      console.log("🚀 ~ error in login:", error.message);
-  
-      res.status(500).send(error.message);
+  try {
+
+    const user = await User.findOne({
+      $or: [
+        { username: req.body.emailOrUsername },
+        { email: req.body.emailOrUsername },
+      ],
+    });
+
+
+    if (!user) {
+      return res.send({ success: false, message: "User not found" });
     }
-  };
+
+
+    const passMatch = await bcrypt.compare(req.body.password, user.password);
+    console.log("🚀 ~ handleLogin ~ passMatch:", passMatch);
+
+  
+    if (!passMatch) {
+      return res.send({ success: false, message: "Invalid password" });
+    }
+
+
+    const userWithoutPassword = user.toObject();
+    delete userWithoutPassword.password;
+
+
+    res.send({ success: true, user: userWithoutPassword });
+
+  } catch (error) {
+    console.log("🚀 ~ error in login:", error.message);
+
+    res.status(500).send({ success: false, message: error.message });
+  }
+};
+
 
 export const handleUpdate = async (req, res) => {
     try {

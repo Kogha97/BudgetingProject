@@ -5,25 +5,24 @@ const { Schema } = mongoose;
 const budgetCurrentSchema = new Schema({
     categoryName:{
         type: String,
-        required: true,
-        unique: true
+        required: false,
+        unique: false,
     },
     currentAmount:{
         type: Number,
-        required: true
+        required: false,
     },
 }, {timestamps: true});
-
 
 const budgetTargetSchema = new Schema({
     categoryName: {
       type: String,
-      required: true,
-      unique: true
+      required: false,
+      unique: false
     },
     targetAmount: {
       type: Number,
-      required: true,
+      required: false,
     },
   }, { timestamps: true });
 

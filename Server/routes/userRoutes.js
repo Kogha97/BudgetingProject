@@ -8,7 +8,6 @@ import {
     handleBudgetCurrent,
     handleGetBudgetCurrent,
 } from '../controllers/userController.js'
-import upload from "../middlewares/multer-cloudinary.js";
 import uploadCloudinary from "../middlewares/multer-cloudinary.js"
 const router =  express.Router();
 

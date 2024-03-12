@@ -12,6 +12,7 @@ export default function Register() {
  const [lastName, setLastName] = useState('')
  const [phoneNumber, setPhoneNumber] = useState('')
 
+
  const navigate = useNavigate();
 
  const handleRegister = async () => {
@@ -30,7 +31,8 @@ export default function Register() {
           password,
           firstName,
           lastName,
-          phoneNumber
+          phoneNumber,
+
       });
 
       if(response.data.success) {
