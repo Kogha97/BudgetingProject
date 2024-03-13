@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../Context/userContext'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 export default function Header() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -20,10 +21,17 @@ export default function Header() {
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   }
-  const handleLogout = () => {
-    localStorage.removeItem('bankUser'); 
-    setUser({ isLoggedIn: false, navbar: false}); 
-    toggleDropdown()
+  const handleLogout = async () => {
+
+    const response = await axios.get(`http://localhost:5001/users/logout`,{
+      withCredentials: true
+    })
+
+    if(response.data.success){
+      localStorage.removeItem('bankUser'); 
+      setUser({ isLoggedIn: false, navbar: false}); 
+      toggleDropdown()
+    }
     navigate('/')
   };
 useEffect(()=>{

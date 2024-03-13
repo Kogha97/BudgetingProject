@@ -14,7 +14,9 @@ export default function CashIn() {
   useEffect(() => {
     const fetchBankFlow = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/banking/flowOut");
+        const response = await axios.get("http://localhost:5001/banking/flowOut",{
+          withCredentials: true
+        });
         const incomingTransactions = response.data.feedItems.filter(item => item.direction === 'OUT')
         setMoneyIn(incomingTransactions)
         console.log(response.data)

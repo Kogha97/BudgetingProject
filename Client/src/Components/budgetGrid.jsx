@@ -38,6 +38,8 @@ export default function BudgetGrid() {
       setIsSubmitting(true)
       try {
         const response = await axios.put(`http://localhost:5001/users/${userId}/budgetTargets`,{
+          withCredentials: true
+        },{
           categoryName,
           targetAmount: newTargetAmount
         });

@@ -53,7 +53,9 @@ export default function UserProfile() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5001/users/profile', formData, {
+      const response = await axios.post('http://localhost:5001/users/profile', formData,{
+        withCredentials: true
+      }, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }

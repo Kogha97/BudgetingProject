@@ -43,7 +43,9 @@ export default function Register() {
       return;
   }
   try {
-      const response = await axios.post("http://localhost:5001/users/register", {
+      const response = await axios.post("http://localhost:5001/users/register",{
+        withCredentials: true
+      }, {
           username,
           email,
           password,

@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 export const handleRegister = async (req, res) => {
   try {
@@ -40,11 +41,14 @@ export const handleLogin = async (req, res) => {
     if (!passMatch) {
       return res.send({ success: false, message: "Invalid password" });
     }
-
-
     const userWithoutPassword = user.toObject();
     delete userWithoutPassword.password;
 
+
+ 
+    const token = jwt.sign({id: user._id}, process.env.SECRET, {expiresIn: '30m'})
+
+    res.cookie('userCookie', token)
 
     res.send({ success: true, user: userWithoutPassword });
 
@@ -162,5 +166,16 @@ export const handleGetBudgetCurrent = async (req, res) => {
   } catch (error) {
     console.log('error in handleGetBudgetCurrent:', error.message)
     res.status(500).send('Error in handleGetBudgetCurrent')
+  }
+}
+
+export const handleLogout = async (req, res) => {
+  try {
+    console.log('this is logout')
+    res.clearCookie('userCookie')
+    res.send({success: true })
+  } catch (error) {
+    console.log("🚀 ~ handleLogout ~ error:", error)
+    res.status(500).send({success: false, error: error.message})
   }
 }

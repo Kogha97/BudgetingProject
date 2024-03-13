@@ -15,10 +15,12 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
+
       const response = await axios.post('http://localhost:5001/users/login', {
         emailOrUsername,
         password,
-      });
+      },{ withCredentials: true});
+      
       console.log("response from login: ", response);
 
       if (response.data.success) {
@@ -26,7 +28,7 @@ export default function Login() {
         setUser({ ...response.data.user, isLoggedIn: true, navbar: true });
         navigate("/");
       } else {
-        // Display different alerts based on the message from the server
+
         setError(response.data.message); 
 
         if(errorTimeoutRef.current){

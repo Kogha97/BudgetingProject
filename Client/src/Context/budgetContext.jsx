@@ -25,13 +25,13 @@ const updateBudgetCategory = async (categoryName, newCurrent) => {
     if (!user._id) return
   
 
-      const response = await axios.put(`http://localhost:5001/users/${user._id}/budgetCurrent`, {
-
-
+      const response = await axios.put(`http://localhost:5001/users/${user._id}/budgetCurrent`,{
         categoryName,
         currentAmount: newCurrent,
+      },{
+        withCredentials: true
       });
-    
+
     } catch (error) {
       console.error('Error updating budget category:', error.message);
     }
@@ -43,8 +43,12 @@ const fetchBudgetData = async () => {
 
     try {
         const [targetResponse, currentResponse] = await Promise.all([
-            axios.get(`http://localhost:5001/users/${user._id}/budgetTargets`),
-            axios.get(`http://localhost:5001/users/${user._id}/budgetCurrent`)
+            axios.get(`http://localhost:5001/users/${user._id}/budgetTargets`,{
+                withCredentials: true
+              }),
+            axios.get(`http://localhost:5001/users/${user._id}/budgetCurrent`,{
+                withCredentials: true
+              })
         ]);
 
         const targetData = targetResponse.data.budgetTargets;

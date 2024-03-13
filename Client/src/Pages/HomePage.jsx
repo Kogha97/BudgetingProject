@@ -31,7 +31,9 @@ export default function HomePage() {
   useEffect(() => {
     const fetchBankBalance = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/banking/balance");
+        const response = await axios.get("http://localhost:5001/banking/balance",{
+          withCredentials: true
+        });
         setBalance(response.data);
         
       } catch (error) {
@@ -43,7 +45,9 @@ export default function HomePage() {
 
     const fetchBankFlow = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/banking/flowIn");
+        const response = await axios.get("http://localhost:5001/banking/flowIn",{
+          withCredentials: true
+        });
         const transactions = response.data.feedItems; 
   
         // Filter transactions by direction
