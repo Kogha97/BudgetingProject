@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate, NavLink} from 'react-router-dom';
 
@@ -11,17 +11,35 @@ export default function Register() {
  const [firstName, setFirstName] = useState('')
  const [lastName, setLastName] = useState('')
  const [phoneNumber, setPhoneNumber] = useState('')
+ const [error, setError] = useState('')
 
+ const errorTimeoutRef = useRef(null)
 
  const navigate = useNavigate();
 
  const handleRegister = async () => {
   if (!email.includes('@')) {
-      alert('Please enter a valid email address.');
+      setError('Please enter a valid email address.');
+      if(errorTimeoutRef.current){
+        clearTimeout(errorTimeoutRef.current)
+      }
+      errorTimeoutRef.current = setTimeout(()=>{
+        setError('');
+
+        errorTimeoutRef.current = null;
+      }, 4000)
       return;
   }
   if (password.length < 4) {
-      alert('Password must be at least 4 characters long.');
+      setError('Password must be at least 4 characters long.');
+      if(errorTimeoutRef.current){
+        clearTimeout(errorTimeoutRef.current)
+      }
+      errorTimeoutRef.current = setTimeout(()=>{
+        setError('');
+
+        errorTimeoutRef.current = null;
+      }, 4000)
       return;
   }
   try {
@@ -39,14 +57,37 @@ export default function Register() {
           navigate("/login");
       } else {
  
-          alert(response.data.message || 'Registration failed');
+          setError(response.data.message || 'Registration failed');
+          if(errorTimeoutRef.current){
+            clearTimeout(errorTimeoutRef.current)
+          }
+          errorTimeoutRef.current = setTimeout(()=>{
+            setError('');
+  
+            errorTimeoutRef.current = null;
+          }, 4000)
       }
   } catch (error) {
       console.error('Registration error:', error);
-      alert('An error occurred during registration. Please try again later.');
+      setError('An error occurred during registration. Please try again later.');
+      if(errorTimeoutRef.current){
+        clearTimeout(errorTimeoutRef.current)
+      }
+      errorTimeoutRef.current = setTimeout(()=>{
+        setError('');
+
+        errorTimeoutRef.current = null;
+      }, 4000)
   }
 };
+useEffect(() => {
+  return () => {
 
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+    }
+  };
+}, []);
   return (
     <div className='bigRegisterContainer'>
       <div className='registerSeparator'>
@@ -116,6 +157,7 @@ export default function Register() {
         onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      <p className='ErrorHandling'>{error || ''}</p>
       <button 
         className='registerButton'
         type='submit'

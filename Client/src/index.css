@@ -145,7 +145,6 @@ position: relative;
   font-size: 30px; 
 }
 /* LOGIN */
-
 .loginText, .loginText a{
   display: flex;
   font-size: 1.5rem;
@@ -202,7 +201,7 @@ position: relative;
   align-items: center;
   border: 0.5px solid grey;
   width: 450px;
-  height: 600px;
+  height: 650px;
   border-radius: 20px;
   margin: 100px 0px 100px 250px;
 }
@@ -221,6 +220,14 @@ position: relative;
   display: flex;
   flex-direction: row;
 }
+
+/* error handling in register and login */
+
+.ErrorHandling{
+  height: 15px;
+}
+
+/*  */
 .profileDropdown{
 position: absolute;
 width: 150px;
