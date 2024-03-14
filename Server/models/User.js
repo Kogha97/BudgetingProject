@@ -60,6 +60,10 @@ const userSchema = new Schema({
         type: String,
         required: false
     },
+    verified:{
+        type: Boolean,
+        default: false,
+    },
     budgetTargets: [budgetTargetSchema],
     budgetCurrent: [budgetCurrentSchema]
 })

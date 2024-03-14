@@ -43,44 +43,43 @@ export default function Register() {
       return;
   }
   try {
-      const response = await axios.post("http://localhost:5001/users/register",{
-        withCredentials: true
-      }, {
-          username,
-          email,
-          password,
-          firstName,
-          lastName,
-          phoneNumber,
+    // Correct placement of withCredentials in the axios request
+    const response = await axios.post("http://localhost:5001/users/register", {
+        // User data to be sent in the request body
+        username,
+        email,
+        password,
+        firstName,
+        lastName,
+        phoneNumber,
+    }, {
+        // Configuration object for the request
+        withCredentials: true,
+    });
 
-      });
-
-      if(response.data.success) {
-          navigate("/login");
-      } else {
- 
-          setError(response.data.message || 'Registration failed');
-          if(errorTimeoutRef.current){
-            clearTimeout(errorTimeoutRef.current)
-          }
-          errorTimeoutRef.current = setTimeout(()=>{
+    if (response.data.success) {
+        navigate("/login");
+    } else {
+        setError(response.data.message || 'Registration failed');
+        if (errorTimeoutRef.current) {
+            clearTimeout(errorTimeoutRef.current);
+        }
+        errorTimeoutRef.current = setTimeout(() => {
             setError('');
-  
             errorTimeoutRef.current = null;
-          }, 4000)
-      }
-  } catch (error) {
-      console.error('Registration error:', error);
-      setError('An error occurred during registration. Please try again later.');
-      if(errorTimeoutRef.current){
-        clearTimeout(errorTimeoutRef.current)
-      }
-      errorTimeoutRef.current = setTimeout(()=>{
+        }, 4000);
+    }
+} catch (error) {
+    console.error('Registration error:', error);
+    setError('An error occurred during registration. Please try again later.');
+    if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+    }
+    errorTimeoutRef.current = setTimeout(() => {
         setError('');
-
         errorTimeoutRef.current = null;
-      }, 4000)
-  }
+    }, 4000);
+}
 };
 useEffect(() => {
   return () => {

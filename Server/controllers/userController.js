@@ -1,14 +1,20 @@
 import User from "../models/User.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import sendEmail from "../utils/sendRegistrationEmail.js";
 
 export const handleRegister = async (req, res) => {
   try {
+    console.log(req.body)
     const hash = await bcrypt.hash(req.body.password, 10)
-    req.body.password = hash
+    req.body.password = hash;
 
     const newUser = await User.create(req.body);
-    console.log("🚀 ~ newUser:", newUser);
+ 
+    const token = jwt.sign({ id: newUser._id}, process.env.SECRET, {
+      expiresIn: "1d"
+    });
+    sendEmail(token)
 
     res.send({ success: true });
   } catch (error) {
@@ -26,6 +32,7 @@ export const handleLogin = async (req, res) => {
         { username: req.body.emailOrUsername },
         { email: req.body.emailOrUsername },
       ],
+
     });
 
 
@@ -33,7 +40,10 @@ export const handleLogin = async (req, res) => {
       return res.send({ success: false, message: "User not found" });
     }
 
-
+    if(!user.verified){
+      return res.send({success: false, message:'User not verified'})
+    }
+    
     const passMatch = await bcrypt.compare(req.body.password, user.password);
     console.log("🚀 ~ handleLogin ~ passMatch:", passMatch);
 
@@ -177,5 +187,23 @@ export const handleLogout = async (req, res) => {
   } catch (error) {
     console.log("🚀 ~ handleLogout ~ error:", error)
     res.status(500).send({success: false, error: error.message})
+  }
+}
+
+export const handleEmailConfirm = async (req, res) => {
+  try {
+    console.log(req.params)
+
+    const { token } = req.params;
+
+    const decoded = jwt.verify(token, process.env.SECRET)
+
+    const user = await User.findByIdAndUpdate(decoded.id, {verified: true}, {
+      new: true
+    })
+
+    res.send({success: true})
+  } catch (error) {
+    res.status(500).send({success: false, errro: error.message})
   }
 }

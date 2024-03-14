@@ -7,7 +7,9 @@ import {
     handleGetBudgetTargets,
     handleBudgetCurrent,
     handleGetBudgetCurrent,
-    handleLogout
+    handleLogout,
+    handleEmailConfirm,
+
 } from '../controllers/userController.js'
 import uploadCloudinary from "../middlewares/multer-cloudinary.js"
 import auth from "../middlewares/auth.js";
@@ -21,7 +23,8 @@ router.put('/:userId/budgetTargets', auth, handleBudgetTargets)
 router.get('/:userId/budgetTargets', auth, handleGetBudgetTargets)
 router.put('/:userId/budgetCurrent', auth, handleBudgetCurrent)
 router.get('/:userId/budgetCurrent', auth, handleGetBudgetCurrent)
-router.get('/logout',auth, handleLogout)
+router.get('/logout', handleLogout)
+router.get('/emailconfirm/:token', handleEmailConfirm)
 
 
 export default router;

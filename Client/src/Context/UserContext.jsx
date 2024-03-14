@@ -12,23 +12,24 @@ export default function UserProvider({ children }) {
         lastName: '',
         phoneNumber: '',
         isLoggedIn: false, // Initially, the user is not logged in
-        navbar: false
+        navbar: true
     });
 
     useEffect(() => {
+        console.log("🚀 ~ UserProvider ~ user:", user)
         const storedUser = JSON.parse(localStorage.getItem('bankUser'));
         if (storedUser) {
-            setUser({ ...storedUser, isLoggedIn: true }); 
+            setUser({ ...storedUser, isLoggedIn: true, navbar: true}); 
             console.log(storedUser)
         }
     }, []);
 
-    const toggleNavbarVisibility = () => {
+    const toggleNavbarVisibility = async () => {
         setUser({...user, navbar: true})
         localStorage.setItem("bankUser", JSON.stringify({ ...user,  navbar: true}));
         console.log(user)
     }
-
+    console.log("🚀 ~ UserProvider ~ user:", user)
     return (
         <UserContext.Provider value={{ user, setUser, toggleNavbarVisibility}}>
             {children}

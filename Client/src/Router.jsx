@@ -14,7 +14,7 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import UserProfile from './Pages/UserProfile';
 import OpenButton from './Components/OpenButton';
-
+import EmailConfirm from './Pages/EmailConfirm';
 
 export default function Router() {
   return (
@@ -34,7 +34,7 @@ export default function Router() {
             <Route path='/house-expenses' element={<HouseExpenses/>}/>
             <Route path='/groceries' element={<Groceries/>}/>
             <Route path='/eating-out' element={<EatingOut/>}/>
-            
+            <Route path='/emailconfirm/:token' element={<EmailConfirm/>}/>            
         </Routes>
       </div>
     </BrowserRouter>
