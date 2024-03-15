@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer'
 
 
 // async..await is not allowed in global scope, must use a wrapper
-export default async function sendEmail(token, email) {
+export default async function sendMail(token, email) {
 
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP_SERVER,
@@ -18,15 +18,15 @@ export default async function sendEmail(token, email) {
   const info = await transporter.sendMail({
     from: '"Budgeting App 👻" <poiuytrewq7991@gmail.com>', // sender address
     to: email, // list of receivers
-    subject: "Hello, Verification Email✔", // Subject line
-    text: "Please verify your email", // plain text body
+    subject: "Hello, Forgot your password Email✔", // Subject line
+    text: "Please change your password ", // plain text body
     html: `
     <!DOCTYPE html>
     <html>
       <body style="margin: 0; padding: 0;background-color: white ;min-height:70vh;width:100%;">
-        <p>Welcome to our Budgeting App</p>
-        <p>Kindly click the following link to verify your email address</p>
-        <a href="http://localhost:5173/emailconfirm/${token}">Verify your email</a>
+        <p>Change password - Budgeting App</p>
+        <p>Kindly click the following link to change your password</p>
+        <a href="http://localhost:5173/changePass/${token}">Change Password</a>
       </body>
     </html>
   `

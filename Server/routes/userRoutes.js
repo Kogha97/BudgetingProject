@@ -9,7 +9,8 @@ import {
     handleGetBudgetCurrent,
     handleLogout,
     handleEmailConfirm,
-
+    handleForgotPass,
+    handleChangePass,
 } from '../controllers/userController.js'
 import uploadCloudinary from "../middlewares/multer-cloudinary.js"
 import auth from "../middlewares/auth.js";
@@ -25,6 +26,8 @@ router.put('/:userId/budgetCurrent', auth, handleBudgetCurrent)
 router.get('/:userId/budgetCurrent', auth, handleGetBudgetCurrent)
 router.get('/logout', handleLogout)
 router.get('/emailconfirm/:token', handleEmailConfirm)
+router.post('/forgotPass', handleForgotPass)
+router.post('/changePass', handleChangePass)
 
 
 export default router;

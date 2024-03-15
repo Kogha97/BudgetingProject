@@ -86,13 +86,15 @@ export default function Login() {
             value={password}
             onChange={(e)=> setPassword(e.target.value)}
             />
+            <p>forgot your password? click <NavLink to="/forgotPassword">here</NavLink></p>
         </div>
+ 
         <p className='ErrorHandling'>{error || ''}</p>
         <button className='loginButton'
           type='submit'
           onClick={handleLogin}
         >
-          Login
+        Login
         </button>
         <div className='loginRegisterContainer'>
           <p>If you do not have an account, register <NavLink to='/register'>here.</NavLink></p>

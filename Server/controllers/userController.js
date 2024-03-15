@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import sendEmail from "../utils/sendRegistrationEmail.js";
+import sendForgotPass from "../utils/sendForgotPassEmail.js";
 
 export const handleRegister = async (req, res) => {
   try {
@@ -204,6 +205,48 @@ export const handleEmailConfirm = async (req, res) => {
 
     res.send({success: true})
   } catch (error) {
-    res.status(500).send({success: false, errro: error.message})
+    res.status(500).send({success: false, message: error.message})
+  }
+}
+export const handleForgotPass = async (req, res) => {
+try {
+  console.log('handle forgot pass', req.body)
+
+  const user = await User.findOne({
+    $or: [
+      { username: req.body.emailOrUsername },
+      { email: req.body.emailOrUsername }
+    ],
+  });
+  if(!user) return req.send({success: false, error: "User not found"})
+
+  const token = jwt.sign({id: user._id}, process.env.SECRET, {
+    expiresIn: '1d'
+  })
+
+  sendForgotPass(token, user.email)
+  res.send({success: true })
+
+} catch (error) {
+  console.log("🚀 ~ handleForgotPass ~ error:", error)
+  res.status(500).send({success: false, message: error.message})
+}
+}
+
+
+export const handleChangePass = async (req, res) => {
+  try {
+    console.log('This is handleChangepass', req.body)
+
+    const decoded = jwt.verify(req.body.token, process.env.SECRET);
+    console.log("🚀 ~ handleChangePass ~ decoded:", decoded);
+
+    const newPass = await bcrypt.hash(req.body.password, 10)
+
+    const newUser = await User.findByIdAndUpdate(decoded.id, {password: newPass}, {new: true })
+    res.send({success: true, message: 'Password updated'})
+  } catch (error) {
+    console.log("🚀 ~ handleChangePass ~ error:", error)
+    res.status(500).send({success: false, error: error.message})
   }
 }

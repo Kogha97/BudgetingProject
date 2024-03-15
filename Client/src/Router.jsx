@@ -15,6 +15,8 @@ import Register from './Pages/Register'
 import UserProfile from './Pages/UserProfile';
 import OpenButton from './Components/OpenButton';
 import EmailConfirm from './Pages/EmailConfirm';
+import ForgotPass from './Pages/ForgotPass';
+import ChangePass from './Pages/ChangePass';
 
 export default function Router() {
   return (
@@ -34,7 +36,9 @@ export default function Router() {
             <Route path='/house-expenses' element={<HouseExpenses/>}/>
             <Route path='/groceries' element={<Groceries/>}/>
             <Route path='/eating-out' element={<EatingOut/>}/>
-            <Route path='/emailconfirm/:token' element={<EmailConfirm/>}/>            
+            <Route path='/emailconfirm/:token' element={<EmailConfirm/>}/>      
+            <Route path='/forgotPassword' element={<ForgotPass/>}/>      
+            <Route path='/changePass/:token' element={<ChangePass/>}/>    
         </Routes>
       </div>
     </BrowserRouter>
