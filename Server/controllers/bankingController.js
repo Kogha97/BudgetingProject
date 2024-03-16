@@ -65,9 +65,6 @@ export const handleBalance = async (req, res) => {
             }
         });
 
-
-  
-
         res.status(200).json(response.data);
     } catch (error) {
         console.error('Error fetching Starling Bank account data:', error.response ? error.response.status : 'No response', error.response ? error.response.data : 'No data', error.response ? error.response.headers : 'No headers');
@@ -146,6 +143,49 @@ export const handleFlowOut = async (req, res) => {
 
        
         const response = await axios.get(`https://api-sandbox.starlingbank.com/api/v2/feed/account/${accountUid}/category/${categoryUid}?changesSince=${changesSince}`, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${tokenInfo.accessToken}`
+            }
+        });
+
+        res.status(200).json(response.data);
+    } catch (error) {
+        console.error('Error fetching Starling Bank account data:', error.response ? error.response.status : 'No response', error.response ? error.response.data : 'No data', error.response ? error.response.headers : 'No headers');
+
+        if (error.response && error.response.status === 403) {
+            res.status(403).send('Forbidden - Access Denied');
+        } else if (error.response && error.response.status === 404) {
+            res.status(404).json({
+                error: 'Resource not found',
+                headers: error.response.headers,
+            })
+
+        } else {
+            res.status(500).json({
+                error: `Error fetching Starling Bank account data: ${error.message}`,
+                headers: error.response ? error.response.headers : {},
+            });
+        }
+    }
+};
+
+
+export const handleSavings = async (req, res) => {
+    // Hard-coded userId for testing
+    const userId = 'joaoTest'; 
+    const accountUid = process.env.ACCOUNT_UID;
+    
+    try {
+        // Retrieve the user's access token from storage
+        const tokenInfo = await getTokenForUser(userId);
+        if (!tokenInfo || !tokenInfo.accessToken) {
+            return res.status(401).json({ error: "Access Token not found or expired." });
+        }
+
+      //  Use the retrieved access token for the API call
+        const response = await axios.get(`https://api-sandbox.starlingbank.com/api/v2/account/${accountUid}/savings-goals`, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",

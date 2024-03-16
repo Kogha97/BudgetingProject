@@ -16,20 +16,22 @@ export default function UserProvider({ children }) {
     });
 
     useEffect(() => {
-        console.log("🚀 ~ UserProvider ~ user:", user)
+  
         const storedUser = JSON.parse(localStorage.getItem('bankUser'));
         if (storedUser) {
             setUser({ ...storedUser, isLoggedIn: true, navbar: true}); 
-            console.log(storedUser)
+
         }
     }, []);
+    const toggleNavbarVisibility = () => {
+        setUser(currentState => {
+            const newState = { ...currentState, navbar: !currentState.navbar };
+            localStorage.setItem("bankUser", JSON.stringify(newState));
+            return newState;
+        });
+    };
+    
 
-    const toggleNavbarVisibility = async () => {
-        setUser({...user, navbar: true})
-        localStorage.setItem("bankUser", JSON.stringify({ ...user,  navbar: true}));
-        console.log(user)
-    }
-    console.log("🚀 ~ UserProvider ~ user:", user)
     return (
         <UserContext.Provider value={{ user, setUser, toggleNavbarVisibility}}>
             {children}

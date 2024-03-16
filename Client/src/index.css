@@ -250,32 +250,92 @@ padding: 10px 0px 10px 0px;
 .profileDropdown a:hover{
   background-color:var(--app-third-color);
 }
-.profileUpdateContainer{
-  height: 95dvh;
+
+.profileUpdateContainer {
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7f7; 
 }
-.profileUpdateContainer h2{
+
+.profileUpdateContainer h2 {
   font-size: 30px;
+  color: #333; 
+  margin-bottom: 20px; 
 }
- .updateContainerName, .updateContainerContact, .updateContainerImage{
+.updateContainer {
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  border-radius: 8px; 
+  padding: 25px;
+  width: 90%; 
+  max-width: 500px; /
+}
+
+.updateContainerName, .updateContainerContact, .updateContainerImage {
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 20px; 
   justify-content: center;
-  height: 100px;
-  padding: 20px 0px 20px 0px;
+  padding: 10px 0;
   align-items: center;
- }
- .updateContainerNameFirst, .updateContainerNameLast, .updateContainerPhone, .updateContainerEmail{
+}
+
+.updateContainerNameFirst, .updateContainerNameLast, .updateContainerPhone, .updateContainerEmail {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  width: 100%; }
 
- }
-.updateContainerImage img{
+.updateContainerNameFirst input, .updateContainerNameLast input, .updateContainerPhone input, .updateContainerEmail input, .imageInput {
+  padding: 10px;
+  border: 1px solid #ddd; 
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.updateContainerImage label {
+  cursor: pointer;
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition:  0.3s ease; 
+}
+
+.updateContainerImage label:hover {
+  background-color: #0056b3; 
+}
+
+.updateContainerImage img {
   width: 100px;
   height: 100px;
-  object-fit: cover
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  margin-left: 20px; 
 }
+
+.saveButton {
+  background: linear-gradient(to right, #00323b, #0a9396);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0; 
+  transition: 0.3s ease; 
+}
+
+.saveButton:hover {
+  background: linear-gradient(to right, #002930, #07b3b6);
+}
+
 
 /* display grid for cash flow */
 
@@ -302,11 +362,18 @@ padding: 10px 0px 10px 0px;
   justify-content: space-between;
   padding: 100px 100px 0px 100px;
 }
-.leftGridDashboard{
+.leftGridDashboard, .rightGridDashboard{
   display: flex;
   min-height: 60dvh;
   flex-direction: column;
   justify-content: center;
+}
+.rightGridDashboard{
+justify-content: space-between;
+width: 600px;
+}
+.savingsContainer{
+  
 }
 .budgetContainer {
   padding: 20px;

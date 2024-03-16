@@ -14,11 +14,14 @@ import Features from '../Components/Features';
 import AboutUs from '../Components/AboutUs'
 import Footer from '../Components/Footer'
 import SectionSeparator from '../Components/SectionSeparator';
+import SavingsGoals from '../Components/SavingsGoals';
+import BalanceDisplay from '../Components/BalanceDisplay';
 
 
 
 export default function HomePage() {
   const [balance, setBalance] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [moneyIn, setMoneyIn] = useState([]);
   const [moneyOut, setMoneyOut] = useState([]);
   const [error, setError] = useState('');
@@ -209,15 +212,14 @@ if(!user.isLoggedIn){
          <BudgetGrid/>
       </div>
       <div className='rightGridDashboard'>
-      <div>
-      {error ? 
-      <p>
-        Error: {error}</p> : 
-        balance ? <p>Balance: {formatMinorUnits(balance.amount.minorUnits)} {balance.amount.currency}</p> : 
-      <p>Loading balance...</p>}
-      </div>
-      <div style={{ width: '500px', height: '400px' }}>
+        <div style={{margin:'0px 0px 0px 80px', width: '440px'}}>
+        <BalanceDisplay balance={balance} error={error} />
+        </div>
+      <div style={{ width: '500px', height: '300px', margin :'0px 0px 0px 28px' }}>
         <Bar data={chartData} options={chartOptions} />
+      </div>
+      <div className='savingsContainer'>
+        <SavingsGoals/>
       </div>
       </div>
     </div>

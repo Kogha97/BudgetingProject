@@ -36,43 +36,48 @@ export default function UserProfile() {
     }
 };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    e.preventDefault();
+  const formData = new FormData();
+  formData.append('firstName', user.firstName);
+  formData.append('lastName', user.lastName);
+  formData.append('phoneNumber', user.phoneNumber);
+  formData.append('email', user.email);
+  formData.append('userId', user._id);
 
-    const formData = new FormData();
-    formData.append('firstName', user.firstName);
-    formData.append('lastName', user.lastName);
-    formData.append('phoneNumber', user.phoneNumber);
-    formData.append('email', user.email);
-    formData.append('userId', user._id)
- 
+  if (selectedFile) {
+    formData.append('avatar', selectedFile);
+  }
 
-    if(selectedFile){
-      formData.append('avatar', selectedFile)
-    }
-
-    try {
-      const response = await axios.post('http://localhost:5001/users/profile', formData,{
-        withCredentials: true
-      }, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
+  try {
+    const response = await axios.post('http://localhost:5001/users/profile', formData, {
+      withCredentials: true,
+      headers: {
+          'Content-Type': 'multipart/form-data',
+      },
     });
 
-    if(response.data.success && response.data.user){
-      setUser(response.data.user);
+    if (response.data.success && response.data.user) {
+      // Manually add the isLoggedIn and navbar properties
+      const updatedUser = {
+        ...response.data.user,
+        isLoggedIn: true, // Assuming the user remains logged in after updating their profile
+        navbar: true, // Assuming you want the navbar to be visible after updating the profile
+      };
+
+      setUser(updatedUser);
+      localStorage.setItem("bankUser", JSON.stringify(updatedUser));
       alert('Profile updated successfully');
-    } else{
+    } else {
       alert('Failed to update profile');
     }
-      
-    } catch (error) {
-      console.log('Error updating profile', error.message);
-      alert('An error occurred while updating the profile.')
-    }
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    alert('An error occurred while updating the profile.');
   }
+}
+
   return (
     <div className='profileUpdateContainer'>
         <h2>Edit your Profile</h2>
@@ -127,7 +132,7 @@ export default function UserProfile() {
             onChange={handleFileChange}
         />
     </label>
-    <img src={currentImageUrl ? currentImageUrl : '../Placeholders/no-img.png'} alt="Profile" style={{ width: '100px', height: '100px' }} />
+    <img src={currentImageUrl ? currentImageUrl : '../Placeholders/no-img.png'} style={{ width: '100px', height: '100px' }} />
 </div>
 
             <button className='saveButton' type="submit">Save Profile</button>
