@@ -371,6 +371,7 @@ padding: 10px 0px 10px 0px;
 .rightGridDashboard{
 justify-content: space-between;
 width: 600px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .budgetContainer {
   padding: 20px;
