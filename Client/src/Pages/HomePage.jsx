@@ -68,12 +68,12 @@ export default function HomePage() {
         const totalOut = negativeTransactions.reduce((acc, curr) => acc + curr.amount.minorUnits, 0);
         setTotalSpent(totalOut);
   
-        const eatingOutTransactions = transactions.filter(item => item.spendingCategory === 'EATING_OUT');
-        const groceriesTransactions = transactions.filter(item => item.spendingCategory === 'GROCERIES');
-        const rentTransactions = transactions.filter(item => item.reference === 'RENT');
-        const medicalTransactions = transactions.filter(item => item.reference === 'MEDICAL');
-        const travelTransactions = transactions.filter(item => item.reference === 'TRAVEL');
-        const subscriptionsTransactions = transactions.filter(item => item.reference === 'SUBCRIPTIONS')
+        const eatingOutTransactions = negativeTransactions.filter(item => item.spendingCategory === 'EATING_OUT');
+        const groceriesTransactions = negativeTransactions.filter(item => item.spendingCategory === 'GROCERIES');
+        const rentTransactions = negativeTransactions.filter(item => item.reference === 'RENT');
+        const medicalTransactions = negativeTransactions.filter(item => item.reference === 'MEDICAL');
+        const travelTransactions = negativeTransactions.filter(item => item.reference === 'TRAVEL');
+        const subscriptionsTransactions = negativeTransactions.filter(item => item.reference === 'SUBCRIPTIONS')
 
 
         const categorizedTransactions = [
