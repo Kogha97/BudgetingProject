@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../Context/userContext';
 import {NavLink} from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleLeft, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../index.css';
 
@@ -24,7 +24,7 @@ export default function SideNavBar() {
   };
 
   
-  library.add(faAngleLeft);
+  library.add(faAngleLeft, faAngleDown, faAngleUp);
 
   if(!user.isLoggedIn || !user.navbar){
     return null
@@ -36,7 +36,11 @@ export default function SideNavBar() {
         </div>
 
         <div className='features'>
-            <button onClick={toggleDropdown}>Cash Flow <i className='fa fa-caret-down'></i></button>
+        <button onClick={toggleDropdown}>
+  Cash Flow
+  <FontAwesomeIcon icon={dropdownVisible ? "fa-solid fa-angle-up" : "fa-solid fa-angle-down"} />
+</button>
+
             {dropdownVisible && (
                 <div className={`dropdownVisible ${dropdownVisible ? 'visible' : ''}`}>
                     <NavLink to="/flow-in">Flow In</NavLink>
@@ -44,11 +48,13 @@ export default function SideNavBar() {
                     <NavLink to="/">Comparison</NavLink>
                 </div>
             )}
-
-            <NavLink to="/subs">Subscriptions</NavLink>
             <NavLink to="/house-expenses">House Expenses</NavLink>
+            <NavLink to="/subs">Subscriptions</NavLink>
             <NavLink to="/groceries">Groceries</NavLink>
             <NavLink to="/eating-out">Eating Out</NavLink>
+            <NavLink to='/medical'>Medical</NavLink>
+            <NavLink to='/travel'>Travel</NavLink>
+            <NavLink to='/extras'>Extras</NavLink>
         </div>
     </div>
 ) : null;

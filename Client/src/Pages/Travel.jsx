@@ -27,13 +27,13 @@ const getDefaultDateRange = () => {
 
 
 // Component
-export default function Subs() {
+export default function Travel() {
   const [error, setError] = useState('');
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(getDefaultDateRange());
 
   useEffect(() => {
-    const fetchSubs = async () => {
+    const fetchTravel = async () => {
       try {
         const response = await axios.get("http://localhost:5001/banking/flowIn", {
           withCredentials: true,
@@ -45,7 +45,7 @@ export default function Subs() {
           const itemDate = new Date(item.transactionTime);
           const startDate = new Date(filter.startDate);
           const endDate = new Date(filter.endDate);
-          return item.reference === 'SUBCRIPTIONS' && itemDate >= startDate && itemDate <= endDate;
+          return item.reference === 'TRAVEL' && itemDate >= startDate && itemDate <= endDate;
         });
 
         setData(filteredTransactions);
@@ -56,7 +56,7 @@ export default function Subs() {
       }
     };
     if (filter.startDate && filter.endDate) {
-      fetchSubs();
+      fetchTravel();
     }
   }, [filter]);
 

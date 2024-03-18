@@ -17,6 +17,9 @@ import OpenButton from './Components/OpenButton';
 import EmailConfirm from './Pages/EmailConfirm';
 import ForgotPass from './Pages/ForgotPass';
 import ChangePass from './Pages/ChangePass';
+import Travel from './Pages/Travel';
+import Medical from './Pages/Medical';
+import Extras from './Pages/Extras'
 
 export default function Router() {
   return (
@@ -38,8 +41,11 @@ export default function Router() {
             <Route path='/eating-out' element={<EatingOut/>}/>
             <Route path='/emailconfirm/:token' element={<EmailConfirm/>}/>      
             <Route path='/forgotPassword' element={<ForgotPass/>}/>      
+            <Route path='/medical' element={<Medical/>}/>
+            <Route path='/travel' element={<Travel/>}/>    
+            <Route path='extras' element={<Extras/>}/>    
             <Route path='/changePass/:token' element={<ChangePass/>}/>    
-        </Routes>
+          </Routes>
       </div>
     </BrowserRouter>
   )

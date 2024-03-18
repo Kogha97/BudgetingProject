@@ -424,7 +424,21 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   min-height: 40px;
   justify-content: center;
   align-items: center;
+}
 
+
+/* Style for the input within the budgetGridRowDiv */
+.budgetGridRowDiv input {
+  min-height: 24px;
+  padding: 8px 12px; 
+  border-radius: 20px; 
+  border: 1px solid var(--app-third-color); 
+  background-color: #fff;
+  font-size: 16px; 
+  width: 40%; }
+.budgetGridRowDiv input:focus {
+  outline: none; 
+  box-shadow: 0 0 5px var(--app-third-color); 
 }
 
 /* OPEN SIDEBAR BUTTON */
@@ -635,3 +649,11 @@ i {
   width: 60dvw;
   height: 50dvh;
 }
+
+/* drpopdown menu side nav bar button */
+#root > div.SideNavBar > div.features > button > svg{
+margin: 0px 0px 0px 10px;
+}
+#root > div.SideNavBar > div.features > button > svg:hover{
+  color: grey;
+  }

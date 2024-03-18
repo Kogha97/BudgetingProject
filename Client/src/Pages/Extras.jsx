@@ -25,38 +25,39 @@ const getDefaultDateRange = () => {
   };
 };
 
-
-// Component
-export default function Subs() {
+export default function Extras() {
   const [error, setError] = useState('');
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(getDefaultDateRange());
 
+  // Update this list based on your application's known categories
+  const knownCategories = ['EATING_OUT', 'GROCERIES', 'RENT', 'MEDICAL', 'TRAVEL', 'SUBSCRIPTIONS'];
+
   useEffect(() => {
-    const fetchSubs = async () => {
+    const fetchExtras = async () => {
       try {
         const response = await axios.get("http://localhost:5001/banking/flowIn", {
           withCredentials: true,
         });
         const transactions = response.data.feedItems;
 
-
+        // Adjust the filtering to capture "Extras" with direction OUT
         const filteredTransactions = transactions.filter(item => {
           const itemDate = new Date(item.transactionTime);
           const startDate = new Date(filter.startDate);
           const endDate = new Date(filter.endDate);
-          return item.reference === 'SUBCRIPTIONS' && itemDate >= startDate && itemDate <= endDate;
+          const isKnownCategory = knownCategories.includes(item.spendingCategory.toUpperCase());
+          return item.direction === 'OUT' && !isKnownCategory && itemDate >= startDate && itemDate <= endDate;
         });
 
         setData(filteredTransactions);
-        console.log('filtered transactions', filteredTransactions)
       } catch (error) {
         const message = error.response ? error.response.data.error : error.message;
         setError(`Failed to fetch bank data: ${message}. Please try again later.`);
       }
     };
     if (filter.startDate && filter.endDate) {
-      fetchSubs();
+      fetchExtras();
     }
   }, [filter]);
 
@@ -79,15 +80,14 @@ export default function Subs() {
     labels: chartLabels,
     datasets: [
       {
-        label: 'Daily Spending (£)',
+        label: 'Daily Extras Spending (£)',
         data: chartDataPoints,
         borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
         tension: 0.3,
       },
     ],
   };
-  console.log("🚀 ~ Travel ~ chartData:", chartData)
- 
 
   const chartOptions = {
     scales: {
@@ -106,7 +106,7 @@ export default function Subs() {
     },
     plugins: {
       legend: {
-        display: true, // Set to false if you also want to hide the legend
+        display: true, // Toggle based on your preference
       },
     },
   };
@@ -130,9 +130,9 @@ export default function Subs() {
         />
       </div>
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      <div className='canvaContainer'>
-        <Line data={chartData} options={chartOptions} />
+         <div className='canvaContainer'>
+            <Line data={chartData} options={chartOptions}/>
+        </div>
       </div>
-    </div>
-  );
+  )
 }
