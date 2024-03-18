@@ -19,6 +19,8 @@ export default function BudgetProvider ({ children })  {
         {name: 'Extras', current: '', target: ''},
     ]);
 
+    console.log(budgetData)
+
 const updateBudgetCategory = async (categoryName, newCurrent) => {
 
     try {

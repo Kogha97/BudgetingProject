@@ -115,6 +115,7 @@ export default function HomePage() {
         setError(`Failed to fetch bank data: ${message}. Please try again later.`);
         console.log('error fetching bank data', message);
       }
+
     };
   
     fetchBankFlow();

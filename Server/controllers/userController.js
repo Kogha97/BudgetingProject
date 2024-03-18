@@ -57,7 +57,7 @@ export const handleLogin = async (req, res) => {
 
 
  
-    const token = jwt.sign({id: user._id}, process.env.SECRET, {expiresIn: '30m'})
+    const token = jwt.sign({id: user._id}, process.env.SECRET, {expiresIn: '1h'})
 
     res.cookie('userCookie', token)
 
@@ -137,6 +137,7 @@ export const handleGetBudgetTargets = async (req, res) => {
 }
 
 export const handleBudgetCurrent = async (req, res) => {
+
   try {
 
   const { userId } = req.params;

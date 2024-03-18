@@ -31,27 +31,28 @@ export default function BudgetGrid() {
     };
 
     const handleUpdateTarget = async (categoryName, newTargetAmount) => {
-      
-      const userId = user._id
-
-      if(isSubmitting) return;
-      setIsSubmitting(true)
+      const userId = user._id;
+    
+      if (isSubmitting) return;
+      setIsSubmitting(true);
+    
       try {
-        const response = await axios.put(`http://localhost:5001/users/${userId}/budgetTargets`,{
-          withCredentials: true
-        },{
-          categoryName,
-          targetAmount: newTargetAmount
-        });
-
-        console.log('reponse from updating budget target', response.data)
-        setIsSubmitting(false)
-
+        // Correct the axios request structure here
+        const response = await axios.put(
+          `http://localhost:5001/users/${userId}/budgetTargets`,
+          { categoryName, targetAmount: newTargetAmount }, // This is the payload
+          { withCredentials: true } // This is the configuration
+        );
+    
+        console.log('response from updating budget target', response.data);
+        fetchBudgetData(); // Refresh data to reflect the update
       } catch (error) {
-        console.log('Error updating budget target:', error.response ? error.response.data : error.message)
-        setIsSubmitting(false)
+        console.error('Error updating budget target:', error.response ? error.response.data : error.message);
+      } finally {
+        setIsSubmitting(false);
       }
     };
+    
 
 const handleKeyDown = async (e, name, targetAmount) => {
   if (e.key === 'Enter') {

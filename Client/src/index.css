@@ -622,3 +622,16 @@ i {
 .fa-2x:hover{
   transform: translateY(-3px);
 }
+
+.graphicContainer{
+  display: flex;
+  flex-direction: column;
+  width: 60dvw;
+  height: 50dvh;
+  align-items: flex-start;
+  margin: 20dvh 0px 0px 5dvw;
+}
+.canvaContainer{
+  width: 60dvw;
+  height: 50dvh;
+}
