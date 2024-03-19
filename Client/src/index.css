@@ -657,3 +657,18 @@ margin: 0px 0px 0px 10px;
 #root > div.SideNavBar > div.features > button > svg:hover{
   color: grey;
   }
+
+.dateContainer{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+/* CALENDAR HOMEPAGE */
+
+.dateContainerDash{
+  display: flex;
+  flex-direction: row;
+gap: 10px;
+margin: 0px 0px 10px 25px;
+}

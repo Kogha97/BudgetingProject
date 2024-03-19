@@ -118,5 +118,6 @@ const handleKeyDown = async (e, name, targetAmount) => {
                 ))}
             </div>
         </div>
+
     );
 }

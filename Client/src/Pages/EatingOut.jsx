@@ -85,7 +85,7 @@ export default function EatingOut() {
       },
     ],
   };
-  console.log("🚀 ~ EatingOut ~ chartData:", chartData)
+
 
   const chartOptions = {
     scales: {

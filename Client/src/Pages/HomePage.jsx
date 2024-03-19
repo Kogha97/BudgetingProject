@@ -16,7 +16,31 @@ import Footer from '../Components/Footer'
 import SectionSeparator from '../Components/SectionSeparator';
 import SavingsGoals from '../Components/SavingsGoals';
 import BalanceDisplay from '../Components/BalanceDisplay';
+import DatePicker from 'react-datepicker';
 
+
+// dates
+const generateDateRange = (startDate, endDate) => {
+  let start = new Date(startDate);
+  let end = new Date(endDate);
+  let dateRange = [];
+  for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+    dateRange.push(new Date(dt).toISOString().split('T')[0]);
+  }
+  return dateRange;
+};
+
+const getDefaultDateRange = () => {
+  const today = new Date();
+  const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+  const format = (date) => date.toISOString().split('T')[0];
+
+  return {
+    startDate: format(firstDayOfMonth),
+    endDate: format(today)
+  };
+};
 
 
 export default function HomePage() {
@@ -31,12 +55,17 @@ export default function HomePage() {
   const { user } = useContext(UserContext)
 
 
+const [filter, setFilter] = useState(getDefaultDateRange());
+
+
+// fetching data
   useEffect(() => {
     const fetchBankBalance = async () => {
       try {
         const response = await axios.get("http://localhost:5001/banking/balance",{
           withCredentials: true
         });
+   
         setBalance(response.data);
         
       } catch (error) {
@@ -51,13 +80,25 @@ export default function HomePage() {
         const response = await axios.get("http://localhost:5001/banking/flowIn",{
           withCredentials: true
         });
-        const transactions = response.data.feedItems; 
+//  start of filtering transactions within a time period
+        const notFilteredTransactions = response.data.feedItems;
   
-        // Filter transactions by direction
-        const positiveTransactions = transactions.filter(item => item.direction === 'IN');
+
+        const filteredTransactions = notFilteredTransactions.filter(item => {
+          const itemDate = new Date(item.transactionTime);
+          const startDate = new Date(filter.startDate);
+          const endDate = new Date(filter.endDate);
+          return itemDate >= startDate && itemDate <= endDate;
+        });
+  
+        const transactions = filteredTransactions;
+//  end of filtering transactions within a time period 
+     
+        const positiveTransactions = filteredTransactions.filter(item => item.direction === 'IN');
         const negativeTransactions = transactions.filter(item => item.direction === 'OUT');
+       
         
-        // Set positive and negative transactions
+    
         setMoneyIn(positiveTransactions);
         setMoneyOut(negativeTransactions);
   
@@ -69,6 +110,7 @@ export default function HomePage() {
         setTotalSpent(totalOut);
   
         const eatingOutTransactions = negativeTransactions.filter(item => item.spendingCategory === 'EATING_OUT');
+        console.log("🚀 ~ fetchBankFlow ~ eatingOutTransactions:", eatingOutTransactions)
         const groceriesTransactions = negativeTransactions.filter(item => item.spendingCategory === 'GROCERIES');
         const rentTransactions = negativeTransactions.filter(item => item.reference === 'RENT');
         const medicalTransactions = negativeTransactions.filter(item => item.reference === 'MEDICAL');
@@ -120,8 +162,7 @@ export default function HomePage() {
   
     fetchBankFlow();
     fetchBankBalance();
-  }, [user]);
-
+  }, [user,filter]); //filter is changing whenever the date changes
 
   const formatMinorUnits = (minorUnits) => {
     return (minorUnits / 100).toFixed(2);
@@ -193,7 +234,14 @@ export default function HomePage() {
       },
     },
   };
-  
+
+
+  const handleDateChange = (event, type) => {
+    setFilter({ ...filter, [type]: event.target.value });
+  };
+
+
+
   library.add(faUser, faAngleRight);
 if(!user.isLoggedIn){
   return(
@@ -208,8 +256,23 @@ if(!user.isLoggedIn){
 }
   return (
     <div className='mainGridDashboard'>
-
       <div className='leftGridDashboard'>
+      <div className="dateContainerDash">
+        <label htmlFor="start-date">Start Date: </label>
+        <input
+          type="date"
+          id="start-date"
+          value={filter.startDate.substring(0, 10)}
+          onChange={(e) => handleDateChange(e, 'startDate')}
+        />
+        <label htmlFor="end-date">End Date: </label>
+        <input
+          type="date"
+          id="end-date"
+          value={filter.endDate.substring(0, 10)}
+          onChange={(e) => handleDateChange(e, 'endDate')}
+        />
+      </div>
          <BudgetGrid/>
       </div>
       <div className='rightGridDashboard'>
