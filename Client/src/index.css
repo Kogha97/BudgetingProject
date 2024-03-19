@@ -8,6 +8,9 @@
   --app-gradient: linear-gradient(to right, #00323b, #0a9396);
   --app-second-color: #00323b;
   --app-third-color: #0a9396;
+  --font-family: 'Poppins', sans-serif; /* Modern font */
+  --success-color: #2ed573; /* Success color */
+    --error-color: #ff4757; /* Error color */
 }
 #root{
   display: flex;
@@ -22,7 +25,7 @@ body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- 
+  font-family: var(--font-family);
 }
 #root > div.contentGrid > header > div.header-right > div > a:nth-child(3){
   cursor: pointer;
@@ -86,7 +89,7 @@ button{
   opacity: 0;
   height: 0;
   overflow: hidden;
-  transition: ease-in;
+  transition: 0.3s ease-in;
 }
 
 .dropdownVisible.visible {
@@ -163,6 +166,11 @@ position: relative;
   border-radius: 20px;
   color: black;
   font-size: 20px;
+  transition: 0.3s ease-in-out;
+}
+.loginButton:hover, .registerButton:hover, .saveButton:hover{
+  background-color: var(--app-third-color);
+  color: whitesmoke;
 }
 .saveButton{
   width: 150px;
@@ -377,7 +385,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   padding: 20px;
   border: 1px solid #ccc;
   width: 100%; 
-  height: 60dvh;
+  height: 65dvh;
   border-radius: 30px;
 }
 #root > div.contentGrid > div > div.leftGridDashboard > div > h3{
@@ -671,4 +679,11 @@ margin: 0px 0px 0px 10px;
   flex-direction: row;
 gap: 10px;
 margin: 0px 0px 10px 25px;
+}
+
+.daysRemaining{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin: 25px 30px 10px 0px;
 }

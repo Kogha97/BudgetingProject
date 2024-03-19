@@ -75,6 +75,15 @@ const handleKeyDown = async (e, name, targetAmount) => {
   }
 };
 
+const daysRemainingInMonth = () => {
+  const date = new Date();
+  const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  return (lastDayOfMonth.getDate() - date.getDate());
+};
+
+
+const daysLeft = daysRemainingInMonth();
+console.log("🚀 ~ BudgetGrid ~ daysLeft:", daysLeft)
 
     return (
         <div className='budgetContainer'>
@@ -117,6 +126,10 @@ const handleKeyDown = async (e, name, targetAmount) => {
                     </div>
                 ))}
             </div>
+            <div className='daysRemaining'>
+              <p>{daysLeft} {daysLeft === 1 ? 'day' : 'days'} left</p>
+            </div>
+
         </div>
 
     );
