@@ -1,21 +1,21 @@
 import React from 'react'
 import { useState, useContext, useEffect, useRef } from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../Context/userContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { useTheme } from '../Context/ThemeContext';
 
 export default function Header() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null); 
   const navigate = useNavigate()
-
   const [currentDate, setCurrentDate] = useState(new Date());
-
   const { user , setUser} = useContext(UserContext)
+  const { dark, toggleDark, setTheme } = useTheme()
 
 
   const toggleDropdown = () => {
@@ -27,10 +27,11 @@ export default function Header() {
       withCredentials: true
     })
 
-    if(response.data.success){
+    if (response.data.success) {
       localStorage.removeItem('bankUser'); 
-      setUser({ isLoggedIn: false, navbar: false}); 
-      toggleDropdown()
+      setUser({ isLoggedIn: false, navbar: false});
+      setTheme(false); // Explicitly set the theme to light on logout
+      toggleDropdown();
     }
     navigate('/')
   };
@@ -102,7 +103,9 @@ if(!user.isLoggedIn){
         {dropdownVisible && (
           <div ref={dropdownRef} className={`profileDropdown ${dropdownVisible ? 'visible' : ''}`}>
             <NavLink to="/profile">Profile</NavLink>
-            <NavLink to="/flow-out">Settings</NavLink>
+            <a onClick={toggleDark} className="theme-toggle-button"> {dark ? 'Light Theme ' : 'Dark Theme '}
+          <FontAwesomeIcon icon={dark ? faSun : faMoon} />
+            </a> 
             <a onClick={handleLogout}>Logout</a>
           </div>
         )}
