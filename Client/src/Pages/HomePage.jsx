@@ -20,16 +20,6 @@ import DatePicker from 'react-datepicker';
 
 
 // dates
-const generateDateRange = (startDate, endDate) => {
-  let start = new Date(startDate);
-  let end = new Date(endDate);
-  let dateRange = [];
-  for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
-    dateRange.push(new Date(dt).toISOString().split('T')[0]);
-  }
-  return dateRange;
-};
-
 const getDefaultDateRange = () => {
   const today = new Date();
   const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -110,7 +100,7 @@ const [filter, setFilter] = useState(getDefaultDateRange());
         setTotalSpent(totalOut);
   
         const eatingOutTransactions = negativeTransactions.filter(item => item.spendingCategory === 'EATING_OUT');
-        console.log("🚀 ~ fetchBankFlow ~ eatingOutTransactions:", eatingOutTransactions)
+    
         const groceriesTransactions = negativeTransactions.filter(item => item.spendingCategory === 'GROCERIES');
         const rentTransactions = negativeTransactions.filter(item => item.reference === 'RENT');
         const medicalTransactions = negativeTransactions.filter(item => item.reference === 'MEDICAL');

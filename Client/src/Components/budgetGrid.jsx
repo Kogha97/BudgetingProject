@@ -83,7 +83,6 @@ const daysRemainingInMonth = () => {
 
 
 const daysLeft = daysRemainingInMonth();
-console.log("🚀 ~ BudgetGrid ~ daysLeft:", daysLeft)
 
     return (
         <div className='budgetContainer'>
