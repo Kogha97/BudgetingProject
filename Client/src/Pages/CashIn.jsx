@@ -22,6 +22,7 @@ export default function CashIn() {
   const [transactionsPerPage] = useState(10)
 
   const [filter, setFilter] = useState(getDefaultDateRange());
+
   useEffect(() => {
     const fetchBankFlow = async () => {
       try {
@@ -129,7 +130,7 @@ export default function CashIn() {
         },
         '& .Mui-selected': {
           color: 'black', 
-          backgroundColor: 'rgba(36, 151, 153)',
+          backgroundColor: 'rgb(36, 151, 153)',
           borderRadius: '50%',
         },
         '& .MuiPaginationItem-ellipsis': {
