@@ -1,16 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BudgetContext } from '../Context/budgetContext';
 import { UserContext } from '../Context/userContext';
 import axios from 'axios'
 
 export default function BudgetGrid() {
-    const { budgetData, fetchBudgetData } = useContext(BudgetContext);
+    const { budgetData, fetchBudgetData, filter } = useContext(BudgetContext);
     const { user } = useContext(UserContext);
-
     const [isSubmitting, setIsSubmitting] = useState(false);
-
     const [editingCategory, setEditingCategory] = useState(null);
     const [editTargetAmount, setEditTargetAmount] = useState('');
+
 
 
     const getColor = (current, target) => {
@@ -37,7 +36,7 @@ export default function BudgetGrid() {
       setIsSubmitting(true);
     
       try {
-        // Correct the axios request structure here
+
         const response = await axios.put(
           `http://localhost:5001/users/${userId}/budgetTargets`,
           { categoryName, targetAmount: newTargetAmount }, // This is the payload
@@ -83,6 +82,11 @@ const daysRemainingInMonth = () => {
 
 
 const daysLeft = daysRemainingInMonth();
+
+
+useEffect(() => {
+  fetchBudgetData(); 
+}, [filter, fetchBudgetData]); 
 
     return (
         <div className='budgetContainer'>

@@ -19,17 +19,17 @@ import BalanceDisplay from '../Components/BalanceDisplay';
 
 
 // dates
-const getDefaultDateRange = () => {
-  const today = new Date();
-  const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+// const getDefaultDateRange = () => {
+//   const today = new Date();
+//   const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
-  const format = (date) => date.toISOString().split('T')[0];
+//   const format = (date) => date.toISOString().split('T')[0];
 
-  return {
-    startDate: format(firstDayOfMonth),
-    endDate: format(today)
-  };
-};
+//   return {
+//     startDate: format(firstDayOfMonth),
+//     endDate: format(today)
+//   };
+// };
 
 
 export default function HomePage() {
@@ -40,11 +40,11 @@ export default function HomePage() {
   const [error, setError] = useState('');
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalSpent, setTotalSpent] = useState(0);
-  const { updateBudgetCategory } = useContext(BudgetContext)
+  const { updateBudgetCategory, filter, setFilter} = useContext(BudgetContext)
   const { user } = useContext(UserContext)
 
 
-const [filter, setFilter] = useState(getDefaultDateRange());
+// const [filter, setFilter] = useState(getDefaultDateRange());
 
 
 // fetching data
@@ -76,7 +76,10 @@ const [filter, setFilter] = useState(getDefaultDateRange());
         const filteredTransactions = notFilteredTransactions.filter(item => {
           const itemDate = new Date(item.transactionTime);
           const startDate = new Date(filter.startDate);
+
           const endDate = new Date(filter.endDate);
+        
+   
           return itemDate >= startDate && itemDate <= endDate;
         });
   
@@ -151,7 +154,7 @@ const [filter, setFilter] = useState(getDefaultDateRange());
   
     fetchBankFlow();
     fetchBankBalance();
-  }, [user,filter]); //filter is changing whenever the date changes
+  }, [user, filter]); //filter is changing whenever the date changes
 
   const formatMinorUnits = (minorUnits) => {
     return (minorUnits / 100).toFixed(2);
