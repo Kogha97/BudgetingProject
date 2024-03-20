@@ -9,6 +9,7 @@ export default function BudgetProvider({ children }) {
 
     const getDefaultDateRange = () => {
         const today = new Date();
+        console.log("🚀 ~ getDefaultDateRange ~ today:", today)
         const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
         const format = (date) => date.toISOString().split('T')[0];
         return {
@@ -75,10 +76,7 @@ export default function BudgetProvider({ children }) {
         fetchBudgetData();
       console.log('hello from context')
     }, [user,filter]); 
-    useEffect(() => {
-      fetchBudgetData();
-    console.log('hello from context2')
-  }, [user,filter]); 
+
     return (
         <BudgetContext.Provider value={{ budgetData, fetchBudgetData, updateBudgetCategory, filter, setFilter }}>
             {children}

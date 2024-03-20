@@ -44,10 +44,6 @@ export default function HomePage() {
   const { user } = useContext(UserContext)
 
 
-// const [filter, setFilter] = useState(getDefaultDateRange());
-
-
-// fetching data
   useEffect(() => {
     const fetchBankBalance = async () => {
       try {
@@ -69,7 +65,7 @@ export default function HomePage() {
         const response = await axios.get("http://localhost:5001/banking/flowIn",{
           withCredentials: true
         });
-//  start of filtering transactions within a time period
+
         const notFilteredTransactions = response.data.feedItems;
   
 
@@ -84,7 +80,7 @@ export default function HomePage() {
         });
   
         const transactions = filteredTransactions;
-//  end of filtering transactions within a time period 
+
      
         const positiveTransactions = filteredTransactions.filter(item => item.direction === 'IN');
         const negativeTransactions = transactions.filter(item => item.direction === 'OUT');
