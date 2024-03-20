@@ -16,7 +16,6 @@ import Footer from '../Components/Footer'
 import SectionSeparator from '../Components/SectionSeparator';
 import SavingsGoals from '../Components/SavingsGoals';
 import BalanceDisplay from '../Components/BalanceDisplay';
-import DatePicker from 'react-datepicker';
 
 
 // dates

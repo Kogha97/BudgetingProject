@@ -52,7 +52,11 @@ export default function Login() {
       }, 4000);
     }
   };
-
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin(); // Call handleLogin if Enter key is pressed
+    }
+  };
   useEffect(() => {
     return () => {
 
@@ -75,7 +79,8 @@ export default function Login() {
             name="username"
             placeholder='Username'
             value={emailOrUsername}
-            onChange={(e)=> setEmailOrUsername(e.target.value)}/>
+            onChange={(e)=> setEmailOrUsername(e.target.value)}
+            onKeyPress={handleKeyPress}/>
         </div>
         <div className='passwordContainer'>
           <label>Password</label>
@@ -85,6 +90,7 @@ export default function Login() {
             placeholder='Password'
             value={password}
             onChange={(e)=> setPassword(e.target.value)}
+            onKeyPress={handleKeyPress}
             />
             <p>forgot your password? click <NavLink to="/forgotPassword">here</NavLink></p>
         </div>
@@ -93,6 +99,7 @@ export default function Login() {
         <button className='loginButton'
           type='submit'
           onClick={handleLogin}
+
         >
         Login
         </button>
