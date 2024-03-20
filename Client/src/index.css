@@ -2,10 +2,24 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: white;
-  color: black;
+  background-color: var(--app-background-color);
+  color: var(--app-text-color);
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  --app-background-color:white;
   --app-gradient: linear-gradient(to right, #00323b, #0a9396);
+  --app-text-color: black;
+  --app-second-text-color: whitesmoke;
+  --app-second-color: #00323b;
+  --app-third-color: #0a9396;
+  --font-family: 'Poppins', sans-serif; /* Modern font */
+  --success-color: #2ed573; /* Success color */
+    --error-color: #ff4757; /* Error color */
+}
+.dark-theme{
+  --app-background-color:rgb(36, 36, 36);
+  --app-gradient: linear-gradient(to right, #00323b, #0a9396);
+  --app-text-color: white;
+  --app-second-text-color:rgba(22, 22, 22, 0.863);
   --app-second-color: #00323b;
   --app-third-color: #0a9396;
   --font-family: 'Poppins', sans-serif; /* Modern font */
@@ -26,6 +40,8 @@ body{
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font-family);
+  background-color: var(--app-background-color);
+  color: var(--app-color-text);
 }
 #root > div.contentGrid > header > div.header-right > div > a:nth-child(3){
   cursor: pointer;
@@ -107,6 +123,7 @@ flex-direction: column;
 justify-content: space-evenly;
 align-items: center;
 padding: 20px 0px 0px 20px;
+color: var(--app-third-color);
 }
 .header-left p {
   gap: 10px;
@@ -152,10 +169,10 @@ position: relative;
   display: flex;
   font-size: 1.5rem;
   margin: 0;
-  color: black;
+
   font-weight: 100;
   text-decoration: none;
-  color: var(--app-second-color);
+  color: var(--app-third-color);
 }
 .loginButton, .registerButton{
   width: 100px;
@@ -164,7 +181,7 @@ position: relative;
   border: solid 2px  #0a9396;
   height: 40px;
   border-radius: 20px;
-  color: black;
+  color: var(--app-color-text);
   font-size: 20px;
   transition: 0.3s ease-in-out;
 }
@@ -221,7 +238,7 @@ position: relative;
 }
 .usernameContainer input, .passwordContainer input{
   height: 20px;
-  border: 1px solid black;
+  border: 1px solid var(--app-second-color);
   border-radius: 5px;
 }
 .nameContainer{
@@ -257,6 +274,7 @@ padding: 10px 0px 10px 0px;
 }
 .profileDropdown a:hover{
   background-color:var(--app-third-color);
+  cursor: pointer;
 }
 
 .profileUpdateContainer {
@@ -265,12 +283,12 @@ padding: 10px 0px 10px 0px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f7f7f7; 
+
 }
 
 .profileUpdateContainer h2 {
   font-size: 30px;
-  color: #333; 
+  color: var(--app-text-color);
   margin-bottom: 20px; 
 }
 .updateContainer {
@@ -279,7 +297,8 @@ padding: 10px 0px 10px 0px;
   border-radius: 8px; 
   padding: 25px;
   width: 90%; 
-  max-width: 500px; /
+  max-width: 500px; 
+
 }
 
 .updateContainerName, .updateContainerContact, .updateContainerImage {
@@ -354,20 +373,30 @@ padding: 10px 0px 10px 0px;
   align-items: center;
   max-height: 100dvh;
   min-height: 75dvh;
-  padding: 0px 100px 50px 100px;
+  padding: 0px 100px 0px 100px;
+  background-color: var(--app-background-color);
+  color: var(--app-text-color);
 }
 .dateContainerFlowIn{
   display: flex;
   justify-content: flex-start;
   margin: 100px 0px 20px 100px;
   gap: 10px;
+  color: var(--app-text-color);
 }
 .displayList{
   display: flex;
   flex-direction: column;
   gap: 20px;
+  color: var(--app-text-color);
 }
-
+#root > div.contentGrid > div.displayGrid > div{
+  background-color: var(--app-background-color);
+  color: var(--app-text-color);
+}
+#root > div.contentGrid > div.displayGrid > div > table{
+  color: var(--app-text-color);
+}
 /* dashboard of main page */
 
 .mainGridDashboard{
@@ -387,15 +416,19 @@ justify-content: space-between;
 width: 600px;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+#root > div.contentGrid > div > div.rightGridDashboard > div:nth-child(1) > div{
+  background-color: var(--app-gradient);
+}
 .budgetContainer {
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 3px solid var(--app-third-color);
   width: 100%; 
   height: 65dvh;
   border-radius: 30px;
 }
 #root > div.contentGrid > div > div.leftGridDashboard > div > h3{
   width: auto;
+  color: var(--app-text-color);
 }
 .budgetGrid{
   display: flex;
@@ -414,12 +447,15 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 .budgetGridHeader div, .budgetGridRow div {
   flex: 1;
   text-align: center; 
+  color: var(--app-text-color)
   
 }
 .budgetGridHeader {
-  background-color: #f0f0f0;
+  background-color: transparent;
+  color: var(--app-text-color);
   font-weight: bold;
   border-radius: 50px;
+
 }
 .budgetGridRowDiv{
   display: flex;
@@ -464,7 +500,7 @@ top: 40dvh;
 .open-navbar-button{
   size: 30px;
   height: 30px;
-  color: black;
+  color: var(--app-second-color);
   cursor: pointer;
 }
 .open-navbar-button:hover{
@@ -475,7 +511,6 @@ top: 40dvh;
 
 .hero {
   background: linear-gradient(to right, #00323b, #0a9396);
-  color: #e9d8a6;
   padding: 4em 0;
   text-align: center;
   position: relative;
@@ -567,11 +602,14 @@ i {
  
 
 /* About US */
-
+.about-us{
+  background-color: white;
+}
 .about-us .container {
   max-width: 800px;
   margin: auto;
   padding: 100px 0px 100px 0px;
+
 }
 
 .accordion-item {
@@ -641,7 +679,9 @@ i {
 .section-separator {
   border: none;
   height: 2px;
+
   background: linear-gradient(to right, #00323b, #0a9396); /* Your gradient */
+  color: white;
   margin: 3dvw 20dvw 2dvw 20dvw;
 }
 .fa-2x{
@@ -667,15 +707,26 @@ i {
 /* drpopdown menu side nav bar button */
 #root > div.SideNavBar > div.features > button > svg{
 margin: 0px 0px 0px 10px;
+columns: var(--app-third-color);
 }
 #root > div.SideNavBar > div.features > button > svg:hover{
-  color: grey;
+  color: var(--app-third-color);
   }
-
+  #root > div > button > svg{
+    color: var(--app-third-color);
+  }
+  #root > div > button > svg:hover{
+    color: #07b3b6;
+  }
 .dateContainer{
   display: flex;
   flex-direction: row;
   gap: 10px;
+  color: var(--app-text-color);
+}
+
+#root > div.contentGrid > div > div.leftGridDashboard > div.dateContainerDash > label{
+  color: var(--app-text-color);
 }
 
 /* CALENDAR HOMEPAGE */
@@ -692,4 +743,15 @@ margin: 0px 0px 10px 25px;
   align-items: flex-end;
   justify-content: flex-end;
   margin: 25px 30px 10px 0px;
+  color: var(--app-text-color);
+}
+
+#root > div.contentGrid > div > div.rightGridDashboard > div:nth-child(1) > div > div > h6{
+  color: var(--app-text-color);
+}
+#root > div.contentGrid > div > div.rightGridDashboard > div:nth-child(1) > div > div > h5{
+  color: var(--app-text-color);
+}
+#root > div.contentGrid > div > div.rightGridDashboard > div:nth-child(1){
+  background-color: var(--app-gradient);
 }

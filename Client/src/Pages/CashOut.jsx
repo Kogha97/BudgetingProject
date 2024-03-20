@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { useTheme } from '../Context/ThemeContext'; 
 
 const getDefaultDateRange = () => {
   const today = new Date();
@@ -20,7 +21,7 @@ export default function CashIn() {
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1)
   const [transactionsPerPage] = useState(10)
-
+  const { dark } = useTheme();
   const [filter, setFilter] = useState(getDefaultDateRange());
 
   useEffect(() => {
@@ -76,6 +77,26 @@ export default function CashIn() {
   const handleDateChange = (event, type) => {
     setFilter({ ...filter, [type]: event.target.value });
   };
+
+  const cellStyles = {
+    color: dark ? 'rgba(255, 255, 255, 0.87)' : 'rgba(0, 0, 0, 0.87)', // Dark mode text color
+  };
+  const paginationStyles = {
+    '& .MuiPaginationItem-root': {
+      color: dark ? 'white' : 'black', // Dynamically set text color based on dark mode
+      '&:hover': {
+        backgroundColor: dark ? 'rgba(255, 255, 255, 0.25)' : 'rgb(36, 151, 153)', 
+      },
+    },
+    '& .Mui-selected': {
+      color: 'black', 
+      backgroundColor: dark ? 'rgba(255, 255, 255, 0.5)' : 'rgb(36, 151, 153)',
+      borderRadius: '50%',
+    },
+    '& .MuiPaginationItem-ellipsis': {
+      color: dark ? 'white' : 'black',
+    },
+  };
   return (
     <>
      <div className="dateContainerFlowIn">
@@ -99,46 +120,31 @@ export default function CashIn() {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Reference</TableCell>
-              <TableCell align="right">Currency</TableCell>
-              <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">Transaction Time</TableCell>
+              <TableCell style={cellStyles}>Reference</TableCell>
+              <TableCell style={cellStyles} align="right">Currency</TableCell>
+              <TableCell style={cellStyles} lign="right">Amount</TableCell>
+              <TableCell style={cellStyles} align="right">Transaction Time</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {currentTransactions.map((transaction, index) => (
               <TableRow key={index}>
-                <TableCell component="th" scope="row">{transaction.reference}</TableCell>
-                <TableCell align="right">{transaction.amount.currency}</TableCell>
-                <TableCell align="right">-{formatMinorUnits(transaction.amount.minorUnits)}</TableCell>
-                <TableCell align="right">{formatDate(transaction.transactionTime)}</TableCell>
+                <TableCell style={cellStyles} component="th" scope="row">{transaction.reference}</TableCell>
+                <TableCell style={cellStyles} align="right">{transaction.amount.currency}</TableCell>
+                <TableCell style={cellStyles} align="right">-{formatMinorUnits(transaction.amount.minorUnits)}</TableCell>
+                <TableCell style={cellStyles} align="right">{formatDate(transaction.transactionTime)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       <Pagination
-      count={totalPages}
-      page={currentPage}
-      onChange={handleChangePage}
-      sx={{
-        '& .MuiPaginationItem-root': {
-          color: 'black', // Sets text color to black for all items
-          '&:hover': {
-            backgroundColor: 'rgb(36, 151, 153)', 
-          },
-        },
-        '& .Mui-selected': {
-          color: 'black', 
-          backgroundColor: 'rgb(36, 151, 153)',
-          borderRadius: '50%',
-        },
-        '& .MuiPaginationItem-ellipsis': {
-          color: 'black',
-        },
-      }}
-      style={{ marginTop: '20px' }}
-    />
+        count={totalPages}
+        page={currentPage}
+        onChange={handleChangePage}
+        sx={paginationStyles} // Apply the dynamic styles here
+        style={{ marginTop: '20px' }}
+      />
       {error && <p>{error}</p>}
     </div>
     </>

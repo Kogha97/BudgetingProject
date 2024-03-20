@@ -7,7 +7,7 @@ const BalanceDisplay = ({ balance, error, loading }) => {
   };
 
   return (
-    <Card style={{ maxWidth: 500, margin: '0 auto', marginTop: 20 }}>
+    <Card  className='balanceDisplay' style={{ maxWidth: 500, margin: '0 auto', marginTop: 20 }}>
       <CardContent>
         <Typography variant="h5" gutterBottom>
           Current Balance

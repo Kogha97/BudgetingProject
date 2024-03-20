@@ -81,6 +81,14 @@ export default function Register() {
     }, 4000);
 }
 };
+
+const handleKeyPress = (e) => {
+  if (e.key === 'Enter') {
+    handleRegister(); // Call handleLogin if Enter key is pressed
+  }
+};
+
+
 useEffect(() => {
   return () => {
 
@@ -104,6 +112,7 @@ useEffect(() => {
         placeholder='JohnDoeDev'
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        onKeyPress={handleKeyPress}
         />
       </div>
       <div className='nameContainer'>
@@ -115,6 +124,7 @@ useEffect(() => {
         placeholder='John'
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
+        onKeyPress={handleKeyPress}
         />
       </div>
       <div className='nameContainer-1'>
@@ -125,6 +135,7 @@ useEffect(() => {
         placeholder='Doe'
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
+        onKeyPress={handleKeyPress}
         />
       </div>
       </div>
@@ -136,6 +147,7 @@ useEffect(() => {
         placeholder='+44 0123456789' 
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
+        onKeyPress={handleKeyPress}
         />
       </div>
       <div className='emailContainer'>
@@ -146,6 +158,7 @@ useEffect(() => {
         placeholder='john.doe@dev.com' 
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        onKeyPress={handleKeyPress}
         />
       </div>
       <div className='passwordContainer'>
@@ -156,13 +169,15 @@ useEffect(() => {
         placeholder='Password'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        onKeyPress={handleKeyPress}
         />
       </div>
       <p className='ErrorHandling'>{error || ''}</p>
       <button 
         className='registerButton'
         type='submit'
-        onClick={handleRegister}>Register</button>
+        onClick={handleRegister}
+        onKeyPress={handleKeyPress}>Register</button>
       <div className='loginRegisterContainer'>
       <p>If you already have an account, Login <NavLink to='/login'>here.</NavLink></p>
       </div>
