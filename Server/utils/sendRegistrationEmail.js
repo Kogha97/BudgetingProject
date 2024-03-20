@@ -17,7 +17,7 @@ export default async function sendEmail(token, email) {
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: '"Budgeting App 👻" <poiuytrewq7991@gmail.com>', // sender address
-    to: email, // list of receivers
+    to: email,// list of receivers
     subject: "Hello, Verification Email✔", // Subject line
     text: "Please verify your email", // plain text body
     html: `

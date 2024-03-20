@@ -11,11 +11,12 @@ export const handleRegister = async (req, res) => {
     req.body.password = hash;
 
     const newUser = await User.create(req.body);
- 
+    const email = req.body.email
+    console.log("🚀 ~ handleRegister ~ email:", email)
     const token = jwt.sign({ id: newUser._id}, process.env.SECRET, {
       expiresIn: "1d"
     });
-    sendEmail(token)
+    sendEmail(token, email)
 
     res.send({ success: true });
   } catch (error) {
