@@ -113,6 +113,9 @@ export default function Medical() {
 
   return (
     <div className='graphicContainer'>
+            <div className='titleContainer'>
+        <h1>Medical Tracker</h1>
+      </div>
       <div className="dateContainer">
         <label htmlFor="start-date">Start Date: </label>
         <input

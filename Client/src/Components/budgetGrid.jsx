@@ -86,7 +86,9 @@ const daysLeft = daysRemainingInMonth();
 
 useEffect(() => {
   fetchBudgetData(); 
-}, [filter, fetchBudgetData]); 
+  handleUpdateTarget()
+  console.log('hello from budgetGrid')
+}, [filter]); 
 
     return (
         <div className='budgetContainer'>

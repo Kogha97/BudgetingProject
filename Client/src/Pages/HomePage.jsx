@@ -40,7 +40,7 @@ export default function HomePage() {
   const [error, setError] = useState('');
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalSpent, setTotalSpent] = useState(0);
-  const { updateBudgetCategory, filter, setFilter} = useContext(BudgetContext)
+  const { updateBudgetCategory, filter, setFilter, fetchBudgetData} = useContext(BudgetContext)
   const { user } = useContext(UserContext)
 
 
@@ -230,6 +230,7 @@ export default function HomePage() {
 
   const handleDateChange = (event, type) => {
     setFilter({ ...filter, [type]: event.target.value });
+    fetchBudgetData();
   };
 
 

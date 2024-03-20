@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext, useCallback } from "react";
 import axios from 'axios';
 import { UserContext } from "./userContext";
 
@@ -53,6 +53,7 @@ export default function BudgetProvider({ children }) {
                 axios.get(`http://localhost:5001/users/${user._id}/budgetCurrent`, {
                     withCredentials: true
                 })
+                
             ]);
 
             const targetData = targetResponse.data.budgetTargets;
@@ -72,9 +73,12 @@ export default function BudgetProvider({ children }) {
 
     useEffect(() => {
         fetchBudgetData();
-    
-    }, [user, JSON.stringify(filter)]); 
-
+      console.log('hello from context')
+    }, [user,filter]); 
+    useEffect(() => {
+      fetchBudgetData();
+    console.log('hello from context2')
+  }, [user,filter]); 
     return (
         <BudgetContext.Provider value={{ budgetData, fetchBudgetData, updateBudgetCategory, filter, setFilter }}>
             {children}

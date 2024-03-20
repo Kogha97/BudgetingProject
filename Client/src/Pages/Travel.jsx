@@ -113,6 +113,9 @@ export default function Travel() {
 
   return (
     <div className='graphicContainer'>
+            <div className='titleContainer'>
+        <h1>Travel Tracker</h1>
+      </div>
       <div className="dateContainer">
         <label htmlFor="start-date">Start Date: </label>
         <input

@@ -697,7 +697,7 @@ i {
   width: 60dvw;
   height: 50dvh;
   align-items: flex-start;
-  margin: 20dvh 0px 0px 5dvw;
+  margin: 7dvh 0px 0px 5dvw;
 }
 .canvaContainer{
   width: 60dvw;
@@ -754,4 +754,11 @@ margin: 0px 0px 10px 25px;
 }
 #root > div.contentGrid > div > div.rightGridDashboard > div:nth-child(1){
   background-color: var(--app-gradient);
+}
+.titleContainer{
+  display: flex;
+  width: 75dvw;
+  justify-content: center;
+  margin: 0px 0px 50px;
+  color: var(--app-text-color);
 }
