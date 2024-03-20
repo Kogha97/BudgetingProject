@@ -40,6 +40,7 @@ export default function CashIn() {
 
 
         const incomingTransactions = filteredTransactions.filter(item => item.direction === 'OUT')
+        console.log("🚀 ~ fetchBankFlow ~ incomingTransactions:", incomingTransactions)
         setMoneyIn(incomingTransactions)
 
 
