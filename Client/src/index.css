@@ -145,7 +145,7 @@ flex-direction: row;
 justify-content: flex-end;
 height: 5dvh;
 padding: 20px 20px 0px 0px;
-gap: 50px;
+gap: 10px;
 align-items: center;
 position: relative;
   
@@ -292,8 +292,8 @@ padding: 10px 0px 10px 0px;
   margin-bottom: 20px; 
 }
 .updateContainer {
-  background: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  background: var(--app-background-color);
+   box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
   border-radius: 8px; 
   padding: 25px;
   width: 90%; 
@@ -314,7 +314,9 @@ padding: 10px 0px 10px 0px;
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 100%; }
+  width: 100%; 
+  color: var(--app-text-color);
+}
 
 .updateContainerNameFirst input, .updateContainerNameLast input, .updateContainerPhone input, .updateContainerEmail input, .imageInput {
   padding: 10px;
@@ -689,6 +691,12 @@ i {
 }
 .fa-2x:hover{
   transform: translateY(-3px);
+}
+.userAvatar{
+  width: 35px;
+  height: 35px;
+  border-radius: 99px;
+  border: 2px solid #0a9396;
 }
 
 .graphicContainer{

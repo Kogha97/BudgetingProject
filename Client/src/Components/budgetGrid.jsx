@@ -77,11 +77,16 @@ const handleKeyDown = async (e, name, targetAmount) => {
 const daysRemainingInMonth = () => {
   const date = new Date();
   const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  return (lastDayOfMonth.getDate() - date.getDate());
+  const daysLeft = lastDayOfMonth.getDate() - date.getDate();
+  
+  // Array of month names
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+  // Getting the current month's name
+  const currentMonthName = monthNames[date.getMonth()];
+  
+  return `${daysLeft} day${daysLeft === 1 ? '' : 's'} to end of ${currentMonthName}`;
 };
-
-
-const daysLeft = daysRemainingInMonth();
 
 
 useEffect(() => {
@@ -132,7 +137,7 @@ useEffect(() => {
                 ))}
             </div>
             <div className='daysRemaining'>
-              <p>{daysLeft} {daysLeft === 1 ? 'day' : 'days'} left</p>
+              <p><p>{daysRemainingInMonth()}</p></p>
             </div>
 
         </div>

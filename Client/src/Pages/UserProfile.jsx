@@ -7,11 +7,11 @@ export default function UserProfile() {
 
   const { user, setUser } = useContext(UserContext)
   const [selectedFile, setSelectedFile] = useState(null)
-  const [currentImageUrl, setCurrentImageUrl] = useState(user.image || '');
+  const [currentImageUrl, setCurrentImageUrl] = useState(user.avatarUrl || '');
 
   useEffect(() =>{
     if(user.image){
-      setCurrentImageUrl(user.image);
+      setCurrentImageUrl(user.avatarUrl);
     }
   }, user)
 

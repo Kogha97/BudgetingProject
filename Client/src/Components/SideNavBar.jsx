@@ -45,7 +45,7 @@ export default function SideNavBar() {
                 <div className={`dropdownVisible ${dropdownVisible ? 'visible' : ''}`}>
                     <NavLink to="/flow-in">Flow In</NavLink>
                     <NavLink to="/flow-out">Flow Out</NavLink>
-                    <NavLink to="/">Comparison</NavLink>
+                    <NavLink to="/">Dashboard</NavLink>
                 </div>
             )}
             <NavLink to="/house-expenses">House Expenses</NavLink>

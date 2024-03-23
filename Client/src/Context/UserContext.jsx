@@ -14,8 +14,9 @@ export default function UserProvider({ children }) {
         isLoggedIn: false, // Initially, the user is not logged in
         navbar: true
     });
-
+    console.log("🚀 ~ UserProvider ~ user:", user)
     useEffect(() => {
+
   
         const storedUser = JSON.parse(localStorage.getItem('bankUser'));
         if (storedUser) {

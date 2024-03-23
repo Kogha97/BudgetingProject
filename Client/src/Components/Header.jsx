@@ -94,7 +94,7 @@ if(!user.isLoggedIn){
         </div>
         <div className='header-right'>
         {user.isLoggedIn ? (
-          <h3 className='loginText'>Logged In</h3>
+          <img src={user.avatarUrl} className="userAvatar"alt="" />
         ) : (
           <h3 className='loginText'><NavLink to="/login">Login</NavLink></h3>
         )}

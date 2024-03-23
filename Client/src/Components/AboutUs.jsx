@@ -11,7 +11,7 @@ const questionsAnswers = [
   },
   {
     question: "Is BudgetingApp free to use?",
-    answer: "We offer a basic version of BudgetingApp for free, with the option to subscribe to our Premium plan for additional features and personalized financial advice."
+    answer: "Yes it it totally free to use!!"
   },
 ];
 
